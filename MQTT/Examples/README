@@ -1,0 +1,10 @@
+1. The code publish_sensor.py publish the data to the server
+2. The code receive_sensor.py recieve the data from the server and display it.
+3. mqtt_home.json is a flow for the node-red client.
+
+Node-Red can be installed as 
+
+url: https://nodered.org/docs/getting-started/local
+npm install -g --unsafe-perm node-red
+
+
