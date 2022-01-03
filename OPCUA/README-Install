@@ -1,0 +1,9 @@
+
+1. Linux
+sudo apt-get update -y
+
+sudo apt-get install -y python-opcua
+
+2. Mac
+conda install -c conda-forge opcua
+
