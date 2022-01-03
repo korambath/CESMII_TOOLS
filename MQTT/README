@@ -1,0 +1,20 @@
+
+1. Install MQTT Server on Mac
+
+  brew install mosquitto
+  
+You can make changes to the configuration by editing:
+    /usr/local/etc/mosquitto/mosquitto.conf
+
+To restart mosquitto after an upgrade:
+  brew services restart mosquitto
+
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/mosquitto/sbin/mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf
+
+
+2. Install Python Package
+
+conda install -c conda-forge paho-mqtt
+
+
