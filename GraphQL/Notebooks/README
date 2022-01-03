@@ -1,0 +1,12 @@
+
+Copy the file config-example.py to config.py
+
+At least these fields needs to be correct values
+
+    "authenticator": "myauthenticatorname",
+    "password": "myauthenticatorspassword",
+    "name": "myusername",
+    "role": "myauthenticatorsrole",
+    "url": "https://MYINSTANCE.cesmii.net/graphql",
+    "barrer_token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xl...",
+
