@@ -18,3 +18,15 @@ Or, if you don't want/need a background service you can just run:
 conda install -c conda-forge paho-mqtt
 
 
+II. Install Linux
+
+sudo apt install mosquitto mosquitto-clients 
+sudo systemctl status mosquitto
+
+sudo systemctl restart mosquitto
+
+
+mosquitto_sub -h 192.168.1.15 -t 'test/topic' -v
+
+mosquitto_pub -t 'test/topic' -m 'helloWorld'
+
