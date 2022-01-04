@@ -1,0 +1,33 @@
+
+It is expected that you have enabled Developer module in Excel spreadsheet that save the file with macros as *.xlsm
+
+
+Expect xlwings in the environment use conda install xlwings if it is not already there.
+
+https://github.com/xlwings/xlwings/releases
+xlwings runpython install
+xlwings version: 0.25.3
+Successfully enabled RunPython!
+
+Download the same version of xlwings.xlam file from https://github.com/xlwings/xlwings/releases in the same directory
+
+# This is the Function that calls Python program from Excel
+
+Sub Call_Python_Function()
+  RunPython ("import query_cesmii_plot; query_cesmii_plot.read_data()")
+End Sub
+
+
+Replace the content of the 5 variables below with actual value in the python code.
+
+authenticator_name="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
+authenticator_passwd="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
+user_name="Login info from https://yourinstance.cesmii.net/"
+
+authenticator_role="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
+
+instance_graphql_endpoint = "https://yourinstance.cesmii.net/graphql"
+
+
+#Required Files
+mutation_data.csv	query_cesmii_plot.py	query_cesmii_plot.xlsm	xlwings.xlam
