@@ -2,7 +2,8 @@
 It is expected that you have enabled Developer module in Excel spreadsheet that save the file with macros as *.xlsm
 
 
-Expect xlwings in the environment use conda install xlwings if it is not already there.
+Expect xlwings in the environment use conda install xlwings (conda install -c conda-forge xlwings )
+if it is not already there.
 
 https://github.com/xlwings/xlwings/releases
 xlwings runpython install
