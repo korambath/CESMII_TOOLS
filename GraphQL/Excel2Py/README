@@ -13,9 +13,11 @@ Successfully enabled RunPython!
 Download the same version of xlwings.xlam file from https://github.com/xlwings/xlwings/releases in the same directory
 
 I. General Action to set up *.xlsm file to run Python code
-   a. Activte Developer (Preferences => Ribbon & Toolbar)
-   b. From the Developer window click "Excel Add-Ins" and browse the location of xlwings.xlam file and add
-   c. Click the Visual Basic Interface and then ==> Tools ==> References ==> Add xlwings (tick mark)
+   a. xlwings addin install
+   b. xlwings runpython install
+   c. Activte Developer (Preferences => Ribbon & Toolbar)
+   d. From the Developer window click "Excel Add-Ins" and browse the location of xlwings.xlam file and add
+   e. Click the Visual Basic Interface and then ==> Tools ==> References ==> Add xlwings (tick mark)
 
 II.  Add the Python Function below
 
