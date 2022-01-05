@@ -2,7 +2,7 @@
 # This Example is from CESMII Official GIT https://github.com/cesmii
 #
 # Instruction
-# copy cesmii_credentials_example.py to cesmii_credential.py and
+# copy cesmii_credentials_example.py to cesmii_credentials.py and
 # replace the value of 5 lines below with actual values as indicated
 #
 authenticator_name="From here https://yourinstance.cesmii.net/developer/graphql/authentication-management"
