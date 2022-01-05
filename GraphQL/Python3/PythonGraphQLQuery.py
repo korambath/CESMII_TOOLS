@@ -6,16 +6,17 @@
 import argparse
 import requests
 import json
+import cesmii_credentials  # read the README file and follow instructions
 
 #
 # Instruction 
-# Replace the value of 5 lines below as indicated
+# The actual value of the 5 lines are read from cesmii_credentials.py file.
 #
-authenticator_name="From here https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-password_smip="From Here https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-user_name="From here https://yourinstance.cesmii.net"
-user_role="From here https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-instance_graphql_endpoint = "https://YOURINSTANCE.cesmii.net/graphql"
+authenticator_name=cesmii_credentials.authenticator_name
+password_smip=cesmii_credentials.password_smip
+user_name=cesmii_credentials.user_name
+user_role=cesmii_credentials.user_role
+instance_graphql_endpoint=cesmii_credentials.instance_graphql_endpoint
 
 ''' You could opt to manually update the bearer token that you retreive from the Developer menu > GraphQL - Request Header token
       But be aware this is short-lived (you set the expiry, see Authenticator comments below) and you will need to handle
