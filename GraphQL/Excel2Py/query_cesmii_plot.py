@@ -7,6 +7,8 @@ import requests
 import json
 import matplotlib.pyplot as plt
 
+import cesmii_credentials # Credentials are read from this file
+
 # What does this program do?
 # This program demonstrates capability of executing GraphQL queries from Excel spreadsheet using Python
 # 1. It first calls a CSV file to get the data into the Excel spreadsheet
@@ -32,13 +34,11 @@ def do_split(full_df, column_no):
 parser = argparse.ArgumentParser()
 
 
-authenticator_name="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-authenticator_passwd="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-user_name="Login info from https://yourinstance.cesmii.net/"
-
-authenticator_role="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-
-instance_graphql_endpoint = "https://yourinstance.cesmii.net/graphql"
+authenticator_name=cesmii_credentials.authenticator_name
+authenticator_passwd=cesmii_credentials.authenticator_passwd
+user_name=cesmii_credentials.user_name
+authenticator_role=cesmii_credentials.authenticator_role
+instance_graphql_endpoint=cesmii_credentials.instance_graphql_endpoint
 
 parser.add_argument("-a", "--authenticator", type=str, default=authenticator_name, help="Authenticator Name")
 parser.add_argument("-p", "--password", type=str, default=authenticator_passwd, help="Authenticator Password")
@@ -153,7 +153,8 @@ def read_data():
 
     # reading csv file 
     # Caution Excel will expect the absolute (full) path of the input file.  So update it.
-    data_file='mutation_data.csv'
+#    data_file='mutation_data.csv'
+    data_file='/Users/ppk/DevOps/ExcelPython/Excel2Py/ForGIT/mutation_data.csv'
     data_df= pd.read_csv(data_file)
 
     data_df = data_df.astype(str)

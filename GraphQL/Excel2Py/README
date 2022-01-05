@@ -27,18 +27,17 @@ Sub Call_Python_Function()
   RunPython ("import query_cesmii_plot; query_cesmii_plot.read_data()")
 End Sub
 
-III.  Edit the Python code
+III.  Copy the file  cesmii_credentials_example.py cesmii_credentials.py and
 
-Replace the content of the 5 variables below with actual value in the python code.
+Replace the content of the 5 variables below with actual value 
 
 authenticator_name="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
 authenticator_passwd="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
 user_name="Login info from https://yourinstance.cesmii.net/"
-
 authenticator_role="From https://yourinstance.cesmii.net/developer/graphql/authentication-management"
-
 instance_graphql_endpoint = "https://yourinstance.cesmii.net/graphql"
 
 
 #Required Files
 mutation_data.csv	query_cesmii_plot.py	query_cesmii_plot.xlsm	xlwings.xlam
+cesmii_credentials.py
