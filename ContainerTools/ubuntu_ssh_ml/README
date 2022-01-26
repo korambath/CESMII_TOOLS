@@ -1,0 +1,25 @@
+
+# Required files in the directory where you are executing the docker commands
+
+1. Dockerfile  (provided)
+
+2. id_rsa.pub file from your $HOME/.ssh directory (not provided)
+
+3. Files that are required to be copied to the docker container.  
+   There are couple of sample files.  You need to edit Dockerfile according to 
+   which files you are copying
+4. A directory called "work" that may be mouned when deploying an instance of the
+   container (not provided)
+5. requirements.txt file  (provided)
+
+6. You must edit the Dockerfile and change the default ssh password (opencesmii)
+
+7. Dockerfile has line with | chpasswd.  Those lines need to be uncommented and change password
+   if you want to login with password.  Otherwise use ssh keys
+
+
+
+Follow the intruction in README-Docker-Deployment  to deploy your container
+
+
+

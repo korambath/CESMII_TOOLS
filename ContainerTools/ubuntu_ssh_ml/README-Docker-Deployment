@@ -1,0 +1,97 @@
+#
+# Build the container 
+#
+docker build -t ubuntu_sshd_ml .
+
+#
+#Once deployed run the container using any of the command below.  
+#
+
+docker run --rm -d -p 2222:22 -p 8888:8888 -v "$(PWD)"/work:/home/cesmii/work  --name test_sshd  ubuntu_sshd_ml
+
+# if PWD doesn't work replace with full path like C:\Users\cesmii\"
+
+docker run --rm -d -p 2222:22 -v "$(PWD)"/work:/home/cesmii/work  --name test_sshd  ubuntu_sshd_ml
+
+docker run -d -p 2222:22 --name test_sshd  ubuntu_sshd_ml
+
+docker run --rm -d -p 2222:22 --name test_sshd  ubuntu_sshd_ml
+
+
+#
+# Access the container using the command below.
+#
+
+ssh -i ~/.ssh/id_rsa root@localhost -p 2222
+
+#
+# The command below is to run GUI Apps if your host is running Linux.  Commands for Windows and Mac are given
+# in another README file
+#
+docker run -d -p 2222:22   -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --name test_sshd  ubuntu_sshd_ml
+
+#
+#Terminatet the container instance using the command below.
+#
+docker stop  $(docker ps -qa)
+
+docker stop test_sshd
+docker rm test_sshd
+
+# Remove the Docker image
+docker rmi ubuntu_sshd_ml
+
+# Other helful commands
+#
+docker inspect $(docker ps -qa)
+docker inspect $(docker ps -qa) | grep -i address
+ssh root@172.17.0.2
+ssh -i ~/.ssh/id_rsa root@172.17.0.2
+
+docker exec -it $(docker ps -qa) ifconfig
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'  $(docker ps -qa)
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.MacAddress}}{{end}}'  $(docker ps -qa)
+docker inspect --format='{{.Config.Image}}' $(docker ps -qa)
+docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}} {{$p}} -> {{(index $conf 0).HostPort}} {{end}}'  $(docker ps -qa)
+docker inspect --format='{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' $(docker ps -qa)
+docker inspect --format '{{ .NetworkSettings.IPAddress }}'  $(docker ps -qa)
+docker stop $(docker ps -qa)
+docker ps -qa
+
+
+#stop all containers:
+docker kill $(docker ps -q)
+
+#remove all containers
+docker rm $(docker ps -a -q)
+
+#remove all docker images
+docker rmi $(docker images -q)
+
+# Docker copy command while the container is running.  
+# First get the container ID
+docker ps -qa
+docker cp PythonSMIPQuery.py 5d544d8b075a:/home/cesmii/.
+
+#
+# Docker commands to run GUI apps on a MAC host
+#
+
+IP=$(ifconfig en0 | grep -w inet | awk '$1=="inet"{print $2}')
+socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
+
+docker run -it  -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix  ubuntu_sshd_ml  bash
+
+docker run -it  --user cesmii -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix  ubuntu_sshd_ml  bash
+
+scp -P 2222 start.sh localhost:.
+
+
+# Run a jupyter notebook from Docker hub
+docker run -p 8888:8888 jupyter/scipy-notebook
+
+
+# Command to start jupyter lab in ubuntu_sshd_ml image
+jupyter lab --ip 0.0.0.0 --port 8888 --no-browser 
+
+# A sample notebook is provided in work/notebooks directory

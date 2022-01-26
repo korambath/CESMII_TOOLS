@@ -1,0 +1,51 @@
+Instructions for Running Docker Container with GUI on MAC
+
+1. brew install socat
+
+2. socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
+
+3. brew install xquartz
+
+4. start Xquartz (open -a Xquartz)  and open preferences and enable "Allow connections from network clients" (may not be necessary)  under security tab
+
+On another window run commands 5 and 6 or 7
+
+5. IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+
+(ubuntu_sshd is the name of the container and bash will open access to the container in bash shell)
+
+6. docker run -it  -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix  ubuntu_sshd_ml  bash
+
+7. docker run -it  --user cesmii -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp/.X11-unix  ubuntu_sshd_ml  bash
+
+8. Inside the container run the command "xclock"
+
+9. "exit" to exit the shell
+
+10. docker rm $(docker ps -qa) to remove the instance
+
+
+
+
+I. Run this command if you want to mount a file system
+
+docker run  -it --user cesmii  -v "$(PWD)"/work:/home/cesmii/work -e DISPLAY=$IP:0 -v /tmp/.X11-unix:/tmp.X11-unix  --name test_sshd  ubuntu_sshd_ml bash
+
+Or run this command with option --rm if you want to remove the container up on exit  (-v /tmp/.X11-unix:/tmp.X11-unix may not be necessary)
+
+docker run --rm  -it --user cesmii  -v "$(PWD)"/work:/home/cesmii/work -e DISPLAY=$IP:0  --name test_sshd  ubuntu_sshd_ml bash
+
+II. Make sure you have socat running on another terminal
+
+socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
+
+(You can run the command lsof -n -i | grep 6000  to make sure it is running or netstat -an | grep 6000)
+
+
+III.
+
+If you don't have any container and simply want to test it run the command below along with socat on another terminal
+
+docker run --rm -e DISPLAY=$IP:0 gns3/xeyes
+
+

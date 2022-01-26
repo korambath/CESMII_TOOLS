@@ -1,0 +1,41 @@
+
+1.  Install VcxSrv Windows X server and configure it.  
+
+2.  Start Xlaunch  from the Start menu and configure it accepting default set up   
+
+3.  Save the Configureation to %userprofile%\Desktop                                         
+
+4.  ipconfig   
+
+Ethernet adapter VirtualBox Host-Only Network:
+
+   Connection-specific DNS Suffix  . :
+
+   Link-local IPv6 Address . . . . . : fe80::1917:8b83:d13c:b360%10
+
+   IPv4 Address. . . . . . . . . . . : 192.168.56.1
+
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+
+   Default Gateway . . . . . . . . . :                                                                                                                                                  
+
+ 5. set-variable -name DISPLAY -value 192.168.56.1:0.0        
+
+ 6. docker build -t ubuntu_sshd_ml .    
+
+Run Docker using the command below.  (This is the preferred method)
+
+7. docker run -ti --rm -e DISPLAY=host.docker.internal:0 ubuntu_sshd_ml bash
+
+xclock
+
+exit
+
+
+(You may try this command as well, but may not work)
+ 8. docker run -ti --rm -e DISPLAY=$DISPLAY ubuntu_sshd_ml bash                                                              
+
+ xclock
+exit
+
+
