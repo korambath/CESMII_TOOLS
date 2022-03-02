@@ -1,0 +1,28 @@
+
+# The instructions here are for direct installment from the FreeOpcUA for the latest
+# updates as conda install lags behind some bug fixes
+# Tested on MAC
+conda create --name opcua_env
+conda activate opcua_env
+python3 --version
+git clone https://github.com/FreeOpcUa/python-opcua.git
+git clone https://github.com/FreeOpcUa/opcua-widgets.git
+echo $PYTHONPATH
+export PYTHONPATH=$PWD/python-opcua:$PWD/opcua-widgets
+echo $PYTHONPATH
+
+# Install Modeler GUI
+git clone https://github.com/FreeOpcUa/opcua-modeler.git
+cd opcua-modeler
+pip install pyqt5
+pip install asyncua
+pip install lxml
+python3 ./app.py
+
+
+# Install Client GUI
+git clone https://github.com/FreeOpcUa/opcua-client-gui.git
+
+cd opcua-client-gui
+python3 ./app.py
+
