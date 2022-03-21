@@ -1,0 +1,35 @@
+
+# Documentation site
+https://open62541.org/doc/current/index.html
+
+
+https://open62541.org/doc/current/building.html
+
+brew install cmake
+pip install sphinx # for documentation generation
+pip install sphinx_rtd_theme # documentation style
+brew install graphviz # for graphics in the documentation
+brew install check # for unit tests
+
+
+git clone https://github.com/open62541/open62541.git
+
+cd open62541
+
+https://open62541.org/doc/current/installing.html
+
+git submodule update --init --recursive
+mkdir build && cd build
+cmake  -DCMAKE_INSTALL_PREFIX=/some/path -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
+make
+make install
+
+
+Compile time error
+
+eventloop_posix_interrrupt.c:364:15: note:did you mean pipe?
+
+Added the line
+   #include <unistd.h>
+   int pipe2(int pipefd[2], int flags);
+

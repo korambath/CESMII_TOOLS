@@ -1,0 +1,45 @@
+
+git clone https://github.com/open62541/open62541.git
+cd open62541/
+git submodule update --init --recursive
+
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo apt-get install git build-essential gcc pkg-config cmake python
+
+# enable additional features
+sudo apt-get install cmake-curses-gui # for the ccmake graphical interface
+sudo apt-get install libmbedtls-dev # for encryption support
+sudo apt-get install check libsubunit-dev # for unit tests
+sudo apt-get install python-sphinx graphviz # for documentation generation
+sudo apt-get install python-sphinx-rtd-theme # documentation style
+
+cd open62541
+mkdir build
+cd build
+
+#cmake -DCMAKE_INSTALL_PREFIX=/some/path -DUA_ENABLE_AMALGAMATION=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
+cmake -DCMAKE_INSTALL_PREFIX=/some/path -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL ..
+make
+make install
+
+
+# select additional features
+ccmake ..
+make
+
+# build documentation
+make doc # html documentation
+make doc_pdf # pdf documentation (requires LaTeX)
+
+
+Installation Comments
+
+Package python-sphinx is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+However the following packages replace it:
+  sphinx-doc sphinx-common
+
+E: Package 'python-sphinx' has no installation candidate

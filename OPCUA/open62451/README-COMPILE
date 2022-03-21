@@ -1,0 +1,2 @@
+
+Edit the compile shell scripts for appropriate paths  from -DCMAKE_INSTALL_PREFIX=/some/path
