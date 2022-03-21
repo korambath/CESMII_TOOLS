@@ -133,6 +133,12 @@ int main(void) {
     *parent = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
     UA_Client_forEachChildNodeCall(client, UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER), nodeIter, (void *) parent);
 
+    *parent = UA_NODEID_STRING_ALLOC(2, "C1_TemperatureSensor"); 
+    UA_Client_forEachChildNodeCall(client, UA_NODEID_STRING_ALLOC(2, "C1_TemperatureSensor"), nodeIter, (void *) parent);
+
+    *parent = UA_NODEID_STRING_ALLOC(2, "C1_Furnace");
+    UA_Client_forEachChildNodeCall(client, UA_NODEID_STRING_ALLOC(2, "C1_Furnace"), nodeIter, (void *) parent);
+
     UA_NodeId_delete(parent);
 
 
