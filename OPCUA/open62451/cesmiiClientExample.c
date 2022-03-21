@@ -18,11 +18,41 @@ nodeIter(UA_NodeId childId, UA_Boolean isInverse, UA_NodeId referenceTypeId, voi
        printf("%d, %d --- %d ---> NodeId %d, %d , %.*s\n",
            parent->namespaceIndex, parent->identifier.numeric,
            referenceTypeId.identifier.numeric, childId.namespaceIndex,
-           childId.identifier.numeric, childId.identifier.string.length, childId.identifier.string.data);
+           childId.identifier.numeric, (int) childId.identifier.string.length, childId.identifier.string.data);
 
     }
     return UA_STATUSCODE_GOOD;
 }
+
+void browsobject(UA_BrowseResponse bResp)
+{
+    for(size_t i = 0; i < bResp.resultsSize; ++i)
+    {
+        for(size_t j = 0; j < bResp.results[i].referencesSize; ++j)
+        {
+            UA_ReferenceDescription *ref = &(bResp.results[i].references[j]);
+            if(ref->nodeId.nodeId.identifierType == UA_NODEIDTYPE_NUMERIC)
+            {
+                printf("%-9d %-24d %-24.*s %-24.*s\n", ref->browseName.namespaceIndex,
+                //printf("%-9d %-16d %-16.*s %-16.*s\n", ref->nodeId.nodeId.namespaceIndex,
+                       ref->nodeId.nodeId.identifier.numeric, (int)ref->browseName.name.length,
+                       ref->browseName.name.data, (int)ref->displayName.text.length,
+                       ref->displayName.text.data);
+            }
+            else if(ref->nodeId.nodeId.identifierType == UA_NODEIDTYPE_STRING)
+            {
+                printf("%-9d %-24.*s %-24.*s %-24.*s\n", ref->browseName.namespaceIndex,
+                //printf("%-9d %-16.*s %-16.*s %-16.*s\n", ref->nodeId.nodeId.namespaceIndex,
+                       (int)ref->nodeId.nodeId.identifier.string.length,
+                       ref->nodeId.nodeId.identifier.string.data,
+                       (int)ref->browseName.name.length, ref->browseName.name.data,
+                       (int)ref->displayName.text.length, ref->displayName.text.data);
+            }
+            /* TODO: distinguish further types */
+        }
+    }
+}
+
 
 
 int main(void) {
@@ -64,31 +94,45 @@ int main(void) {
 
     UA_BrowseResponse bResp = UA_Client_Service_browse(client, bReq);
     printf("%-9s %-24s %-24s %-24s\n", "NAMESPACE", "NODEID", "BROWSE NAME", "DISPLAY NAME");
+    browsobject(bResp);
 
-    for (size_t i = 0; i < bResp.resultsSize; ++i) {
-        for (size_t j = 0; j < bResp.results[i].referencesSize; ++j) {
-            UA_ReferenceDescription *ref = &(bResp.results[i].references[j]);
-            if(ref->nodeId.nodeId.identifierType == UA_NODEIDTYPE_NUMERIC) {
-                printf("%-9d %-24d %-24.*s %-24.*s\n", ref->browseName.namespaceIndex,
-                       ref->nodeId.nodeId.identifier.numeric, (int)ref->browseName.name.length,
-                       ref->browseName.name.data, (int)ref->displayName.text.length,
-                       ref->displayName.text.data);
-            } else if(ref->nodeId.nodeId.identifierType == UA_NODEIDTYPE_STRING) {
-                printf("%-9d %-24.*s %-24.*s %-24.*s\n", ref->browseName.namespaceIndex,
-                       (int)ref->nodeId.nodeId.identifier.string.length, ref->nodeId.nodeId.identifier.string.data,
-                       (int)ref->browseName.name.length, ref->browseName.name.data,
-                       (int)ref->displayName.text.length, ref->displayName.text.data);
-            }
-        }
-    }
-    UA_BrowseRequest_deleteMembers(&bReq);
-    UA_BrowseResponse_deleteMembers(&bResp);
+    UA_BrowseRequest bReq2;
+    UA_BrowseRequest_init(&bReq2);
+    bReq2.requestedMaxReferencesPerNode = 0;
+    bReq2.nodesToBrowse = UA_BrowseDescription_new();
+    bReq2.nodesToBrowseSize = 1;
+    //bReq2.nodesToBrowse[0].nodeId = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER); //browse objects folder
+    bReq2.nodesToBrowse[0].resultMask = UA_BROWSERESULTMASK_ALL; //return everything
+    printf("%-9s %-24s %-24s %-24s\n", "NAMESPACE", "NODEID", "BROWSE NAME", "DISPLAY NAME");
+
+    // Why we are using UA_NODEID_STRING_ALLOC ?
+    // UA_NODEID_STRING_ALLOC will use malloc to create a copy of the string.
+    // UA_NODEID_STRING will add a reference to the passed string, it will not create a copy.
+    // Since UA_BrowseRequest_deleteMembers(&bReq); is trying to delete all of its content, 
+    // including the nodeId, it will try to free the string the.answer but it is on the stack, not heap.
+
+    bReq2.nodesToBrowse[0].nodeId = UA_NODEID_STRING_ALLOC(2, "C1_TemperatureSensor"); //browse objects folder
+    UA_BrowseResponse bResp2 = UA_Client_Service_browse(client, bReq2);
+    browsobject(bResp2);
+
+    printf("%-9s %-24s %-24s %-24s\n", "NAMESPACE", "NODEID", "BROWSE NAME", "DISPLAY NAME");
+    bReq2.nodesToBrowse[0].nodeId = UA_NODEID_STRING_ALLOC(2, "C1_Furnace"); //browse objects folder
+    bResp2 = UA_Client_Service_browse(client, bReq2);
+    browsobject(bResp2);
+
+    UA_BrowseRequest_clear(&bReq);
+    UA_BrowseResponse_clear(&bResp);
+    UA_BrowseRequest_clear(&bReq2);
+    UA_BrowseResponse_clear(&bResp2);
+
+    //UA_BrowseRequest_deleteMembers(&bReq);
+    //UA_BrowseResponse_deleteMembers(&bResp);
 
     /* Same thing, this time using the node iterator... */
     UA_NodeId *parent = UA_NodeId_new();
     *parent = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
-    UA_Client_forEachChildNodeCall(client, UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),
-                                   nodeIter, (void *) parent);
+    UA_Client_forEachChildNodeCall(client, UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER), nodeIter, (void *) parent);
+
     UA_NodeId_delete(parent);
 
 
