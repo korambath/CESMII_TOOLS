@@ -8,5 +8,7 @@ At least these fields needs to be correct values
     "name": "myusername",
     "role": "myauthenticatorsrole",
     "url": "https://MYINSTANCE.cesmii.net/graphql",
-    "barrer_token": "  ",
+    "bearer_token": "  ",
 
+
+Sometimes config may be a keyword.  So, you may want to use config2 or somethinglike that.
