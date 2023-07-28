@@ -6,6 +6,16 @@ K-type thermocouple is a type of temperature sensor with a wide measurement rang
 The MAX6675 amplifier communicates with a microcontroller using the 
 SPI communication protocol and the data is output in a 12-bit resolution.
 
+Features
+ Direct Digital Conversion of Type -K Thermocouple
+Output
+ Cold-Junction Compensation
+ Simple SPI-Compatible Serial Interface
+ 12-Bit, 0.25°C Resolution
+ Open Thermocouple Detectio
+
+Positive Terminal: Red
+Negative Terminal: Blue 
 
 MAX6675	Arduino
 GND	GND
