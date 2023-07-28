@@ -1,0 +1,20 @@
+K-type thermocouple is a type of temperature sensor with a wide measurement range 
+
+−200ºC to 1350ºC (−326 to 2300ºF).
+
+
+The MAX6675 amplifier communicates with a microcontroller using the 
+SPI communication protocol and the data is output in a 12-bit resolution.
+
+
+MAX6675	Arduino
+GND	GND
+VCC	3.3V
+SCK	Pin 6
+CS	Pin 5
+SO	Pin 4
+
+
+Adafruit Library Location:
+https://github.com/adafruit/MAX6675-library
+https://www.analog.com/media/en/technical-documentation/data-sheets/max6675.pdf
