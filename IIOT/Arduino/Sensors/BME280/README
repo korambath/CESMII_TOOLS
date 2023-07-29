@@ -1,0 +1,39 @@
+BME280 sensor from Bosch is an environmental sensor with temperature, barometric pressure and humidity! 
+This sensor is great for all sorts of weather/environmental sensing and can be used with  both I2C and SPI!
+
+Resource:
+
+https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/arduino-test
+
+
+Step 1. Install Adafruit BME280 library.  
+
+Arduino IDE will install itself if you search for BME280 Adafruit
+
+https://github.com/adafruit/Adafruit_BME280_Library
+
+Step 2. Wiring for I2C and SPI interface are shown in the pictures below.
+
+For I2C wiring StemmaQT is used thereby, but for SPI wiring you need to solder.
+
+SPI = Serial Peripheral Interface
+Number of wires 4 (MOSI, MISO, SCK, and SS)
+Communication type	Full-duplex
+Data transfer speed 	Faster
+
+
+
+I2C = Inter-Integrated Circuit.
+Number of wires 2 (SDA and SCL) 
+Communication type 	Half-duplex 
+Serial Data (SDA) – Transfer of data takes place through this pin.
+Serial Clock (SCL) – It carries the clock signal.
+Data transfer speed 	Slower
+
+
+Arduino_BME280_I2C_IDE.png	Arduino_BME280_SPI_IDE.png
+Arduino_BME280_I2C_Wiring.png	Arduino_BME280_SPI_Wiring.png
+
+Arduino_BME280_I2C.jpg	Arduino_BME280_SPI.jpg
+
+
