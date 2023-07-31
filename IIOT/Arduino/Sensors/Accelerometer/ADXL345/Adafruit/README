@@ -1,0 +1,61 @@
+
+
+URL: https://learn.adafruit.com/adxl345-digital-accelerometer/overview
+Library URL: https://github.com/adafruit/Adafruit_ADXL345/tree/master
+
+Power Pins
+
+This breakout board can be run on 3.3V and 5V systems. We added an on-board 3.3V regulator and logic-level shifting circuitry, 
+making it a perfect choice for interfacing with any 3V or 5V microcontroller such as the Arduino.
+
+VIN - This is the input to the 3.3V voltage regulator, which makes it possible to use the 3.3V sensor on 5V systems. 
+It also determines the logic level of the SCL and SDA pins. Connect this to 3.3V on the MCU for 3.3V boards (Adafruit Feathers), 
+or 5.0V for 5V Arduinos (Arduino Uno, etc.).
+
+3Vo - This is the OUTPUT of the 3.3V regulator, and can be used to provide 3.3V power to other parts of your project if required (< 100mA).
+GND - Connect this to the GND pin on your development board to make sure they are sharing a common GND connection, 
+or the electrons won't have anywhere to flow!
+
+
+I2C Pins
+
+SCL - The clock line on the I2C bus. This pin has an internal pullup resistor on the PCB, 
+which is required as part of the I2C spec, meaning you don't need to add one externally yourself. 
+This also functions as SCK in SPI mode.
+
+SDA - The data line on the I2C bus. This pin has an internal pullup resistor on the PCB, 
+which is required as part of the I2C spec, meaning you don't need to add one externally yourself. 
+This also functions as MOSI in SPI mode.
+
+
+SPI Pins
+
+SCL -  functions as SCK in SPI mode.
+SDA -  functions as MOSI in SPI mode.
+SDO -  functions as MISO in SPI mode
+CS  -  functions as the chip select line in SPI mode,
+
+
+//SCK = Connect the SCL pin to Digital #13 but any pin can be used later
+//MISO = Connect the SDO pin to Digital #12 but any pin can be used later
+//MOSI = Connect the SDA pin to Digital #11 but any pin can be used later
+//CS = Connect the CS pin Digital #10 but any pin can be used later
+//Vin = Connect Vin to the power supply, 3V or 5V is fine. Use the same voltage that the microcontroller logic is based off of. For most Arduinos, that is 5V
+//GND = Connect GND to common power/data ground
+
+#define ADXL_SCK 13
+#define ADXL_MISO 12
+#define ADXL_MOSI 11
+#define ADXL_CS 10
+
+//Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345); // For I2C
+Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(ADXL_SCK,ADXL_MISO,ADXL_MOSI,ADXL_CS); // For SPI
+
+
+Wiring for I2C and SPI are shown in the image directory
+
+
+
+Code to run is
+
+adxl345_adafruit/adxl345_adafruit.ino
