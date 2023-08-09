@@ -1,0 +1,2 @@
+The files in this directoy explains how to publish Arduino BME280 data through MQTT and subscribe it.
+
