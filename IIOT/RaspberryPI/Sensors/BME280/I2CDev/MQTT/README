@@ -1,0 +1,6 @@
+
+sudo apt-get install mosquitto mosquitto-clients
+
+sudo systemctl restart mosquitto.service
+
+sudo systemctl status mosquitto.service
