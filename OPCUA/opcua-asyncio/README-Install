@@ -1,0 +1,15 @@
+
+
+Home: http://freeopcua.github.io
+Development: https://github.com/FreeOpcUa/opcua-asyncio 
+
+
+pip install asyncua
+or
+conda install conda-forge::asyncua
+
+
+
+A GPL Python GUI client: https://github.com/FreeOpcUa/opcua-client-gui 
+
+pip install opcua-client
