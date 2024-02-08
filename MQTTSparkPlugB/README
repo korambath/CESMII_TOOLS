@@ -27,3 +27,6 @@ two different sensors from the same edge device.
 The BME280 codes are in the BME280 directory and the listener code is in this directory.
 
 
+
+Please read the link below if you want to know how to connecto two identical sensors to RaspberryPI I2C.
+https://github.com/korambath/CESMII_TOOLS/blob/main/IIOT/RaspberryPI/Sensors/BME280/I2CDev/TwoSensors/README-Install
