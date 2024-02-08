@@ -1,0 +1,29 @@
+conda create -n py311pip python=3.11
+
+
+# To activate this environment, use
+#
+#     $ conda activate py311pip
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+
+
+conda activate py311pip
+
+pip install mqtt-spb-wrapper
+
+
+For details of the project look at this site and corresponding GitHub page
+Reference: https://pypi.org/project/mqtt-spb-wrapper/
+
+
+In this example we have connected two BME280 humidity, temperature, pressure sensor
+to a single RaspberryPI to demonstrate sparkplug can distinguish data coming from 
+two different sensors from the same edge device.
+
+The BME280 codes are in the BME280 directory and the listener code is in this directory.
+
+
