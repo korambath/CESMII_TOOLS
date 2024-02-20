@@ -1,0 +1,90 @@
+This folder provides some tests in C, Python and Perl to test whether you are running 
+a 32 bit OS or 64 bit running OS and whether you are susceptible to Y2K38 problem 
+explained here.
+
+https://en.wikipedia.org/wiki/Year_2038_problem
+
+
+You can run the command "getconf LONG_BIT" in a unix based system to output 32 or 64 
+corresponding to 34 bit.  The C program can be compiled using the command
+
+gcc ./test_year2k38.c 
+
+ppk@raspberrypi:~/DevOps/Y2K38 $ getconf LONG_BIT
+64
+ppk@raspberrypi:~/DevOps/Y2K38 $ ./a.out
+This program tests time related issues regarding Year 2038 (Y2k38) !
+Current seconds since January 1, 1970 = 1708447646
+
+Test whether you are running a 32 bit or 64 bit OS 
+Your system is running 64 bit OS 
+sizeof(int): 4
+sizeof(long long int): 8
+sizeof(time_t): 8
+Local time and date: Tue Feb 20 08:47:26 2024
+
+UTC time and date: Tue Feb 20 16:47:26 2024
+
+2147483647, Tue Jan 19 03:14:07 2038
+2147483648, Tue Jan 19 03:14:08 2038
+2147483649, Tue Jan 19 03:14:09 2038
+2147483650, Tue Jan 19 03:14:10 2038
+ppk@raspberrypi:~/DevOps/Y2K38 $ python ./test_year2k38.py 
+Current UTC time =  2024-02-20 16:47:32.554798
+Current Local time =  2024-02-20 08:47:32.555069
+Last time that can be stored on 32 bit os  2038-01-18 19:14:07
+Next Second on 64 bit OS  2038-01-18 19:14:08
+ppk@raspberrypi:~/DevOps/Y2K38 $ perl ./test_year2k38.pl
+Tue Jan 19 03:14:06 2038
+Tue Jan 19 03:14:07 2038
+Tue Jan 19 03:14:08 2038
+Tue Jan 19 03:14:09 2038
+Tue Jan 19 03:14:10 2038
+Last time in seconds that can be stored on a 32 bit machine 2147483647 
+Last day on 32/64 bit Tue Jan 19 03:14:07 2038
+Current time on 32 bit/64 bit Tue Jan 19 03:14:07 2038
+
+Next time after a second increment on 32 bit/64 bit Tue Jan 19 03:14:08 2038
+
+
+
+Output on 32 Bit
+
+pi@raspberrypi:~/DevOps/Y2K38 $ getconf LONG_BIT
+32
+pi@raspberrypi:~/DevOps/Y2K38 $ ./a.out
+This program tests time related issues regarding Year 2038 (Y2k38) !
+Current seconds since January 1, 1970 = 1708447726
+
+Test whether you are running a 32 bit or 64 bit OS 
+Your system is running 32 bit OS 
+sizeof(int): 4
+sizeof(long long int): 8
+sizeof(time_t): 4
+Local time and date: Tue Feb 20 08:48:46 2024
+
+UTC time and date: Tue Feb 20 16:48:46 2024
+
+2147483647, Tue Jan 19 03:14:07 2038
+-2147483648, Fri Dec 13 20:45:52 1901
+-2147483647, Fri Dec 13 20:45:53 1901
+-2147483646, Fri Dec 13 20:45:54 1901
+pi@raspberrypi:~/DevOps/Y2K38 $ python3 ./test_year2k38.py 
+Current UTC time =  2024-02-20 16:48:53.937185
+Current Local time =  2024-02-20 08:48:53.939419
+Last time that can be stored on 32 bit os  2038-01-18 19:14:07
+Traceback (most recent call last):
+  File "./test_year2k38.py", line 10, in <module>
+    print ("Next Second on 64 bit OS ", datetime.fromtimestamp(epoch_seconds+1))
+OverflowError: timestamp out of range for platform time_t
+pi@raspberrypi:~/DevOps/Y2K38 $ perl ./test_year2k38.pl
+Tue Jan 19 03:14:06 2038
+Tue Jan 19 03:14:07 2038
+Tue Jan 19 03:14:07 2038
+Tue Jan 19 03:14:07 2038
+Tue Jan 19 03:14:07 2038
+Last time in seconds that can be stored on a 32 bit machine 2147483647 
+Last day on 32/64 bit Tue Jan 19 03:14:07 2038
+Current time on 32 bit/64 bit Tue Jan 19 03:14:07 2038
+
+Next time after a second increment on 32 bit/64 bit Tue Jan 19 03:14:07 2038
