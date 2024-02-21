@@ -1,14 +1,16 @@
 This folder provides some tests in C, Python and Perl to test whether you are running 
-a 32 bit OS or 64 bit running OS and whether you are susceptible to Y2K38 problem 
+a 32 bit OS or 64 bit OS on your computer and whether you are susceptible to Y2K38 problem 
 explained here.
 
 https://en.wikipedia.org/wiki/Year_2038_problem
 
 
 You can run the command "getconf LONG_BIT" in a unix based system to output 32 or 64 
-corresponding to 34 bit.  The C program can be compiled using the command
+corresponding to 34 bit or 64 bit.  The C program can be compiled using the command
 
 gcc ./test_year2k38.c 
+
+Output on a 64 Bit
 
 ppk@raspberrypi:~/DevOps/Y2K38 $ getconf LONG_BIT
 64
