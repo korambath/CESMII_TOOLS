@@ -34,6 +34,7 @@ write_attribute_id1 = "REPLACE"    #The Equipment Attribute ID to be updated in 
 write_attribute_id2 = "REPLACE"    #The Equipment Attribute ID to be updated in your SMIP model
 write_attribute_id3 = "REPLACE"     #The Equipment Attribute ID to be updated in your SMIP model
 
+
 Also you can look at 
 https://github.com/cesmii/API/blob/main/Docs/mutations.md
 https://github.com/cesmii/API/blob/main/Docs/queries.md
