@@ -32,14 +32,14 @@ Get these values from the platform (name, authenticator, password_smip, role etc
 
 For example, in credentials.py file
 
-# For MQTT (if you didn't setup your MQTT server with username/password then you don't need them)
+#### For MQTT (if you didn't setup your MQTT server with username/password then you don't need them)
 broker = 'REPLACE'
 port = 1883
 topic = "REPLACE"
 username = 'REPLACE'
 password = 'REPLACE'
 
-# For CESMII SMIP
+#### For CESMII SMIP
 
 name= "REPLACE"
 authenticator= "REPLACE"
@@ -58,6 +58,8 @@ write_attribute_id4 = "REPLACE"    #The Equipment Attribute ID to be updated in 
 write_attribute_id5 = "REPLACE"    #The Equipment Attribute ID to be updated in your SMIP model
 
 Also you can look at 
+
 https://github.com/cesmii/API/blob/main/Docs/mutations.md
+
 https://github.com/cesmii/API/blob/main/Docs/queries.md
 
