@@ -1,0 +1,5 @@
+Follow the instruction on README-DHCP-Server to construct a DHCP server that will do 
+network segmentation to OT and IT private subnets to isolate the traffic on OT and IT networks
+as well as port forwarding through the main public IP address.  This way all the 
+servers in both OT and IT networks are protected from direct public network access
+and at the same time the servers can interact with external network.
