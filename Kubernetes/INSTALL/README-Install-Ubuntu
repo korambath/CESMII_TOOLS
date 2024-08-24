@@ -1,0 +1,62 @@
+
+Install k3s control plane
+
+UFW:
+ufw app list
+# ufw allow OpenSSH
+
+# ufw enable
+
+# ufw status
+
+ufw allow 6443/tcp #apiserver
+ufw allow from 10.42.0.0/16 to any #pods
+ufw allow from 10.43.0.0/16 to any #services
+ufw allow 22
+
+Following the instructions at https://rancher.com/docs/k3s/latest/en/quick-start/
+
+On the first node:
+The command uses curl to download the script located at https://get.k3s.io and executes the script by piping it to sh -. Upon script execution, K3s cluster installation will begin with the default configuration options which creates a single-node Kubernetes cluster.
+
+1.0  curl -sfL https://get.k3s.io | sh -
+
+1.1 systemctl status k3s
+
+1.2 sudo kubectl get all -n kube-system
+
+1.3 sudo k3s kubectl get nodes
+
+Install k3s agents
+
+2.1 sudo cat /var/lib/rancher/k3s/server/node-token
+
+On worker nodes
+
+2.2  curl -sfL https://get.k3s.io | K3S_URL=https://masternode:6443 K3S_TOKEN=<node-token> sh -
+
+KUBECONFIG
+
+3.1 mkdir ~/.k3s
+3.2 sudo cp /etc/rancher/k3s/k3s.yaml ~/.k3s/k3s.yaml
+3.3 sudo chown $USER.$USER ~/.k3s/k3s.yaml
+3.4 export KUBECONFIG=$HOME/.k3s/k3s.yaml   # add this to ~/.bashrc
+
+or
+
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
+
+sudo systemctl restart k3s
+sudo systemctl status k3s
+
+4.0
+export KUBECONFIG=$HOME/.k3s/k3s.yaml
+brew install derailed/k9s/k9s
+
+UnInstall
+
+/usr/local/bin/k3s-uninstall.sh
+
+
+

@@ -1,0 +1,3 @@
+Follow the instruction in INSTALL folder for installing Kubernetes K3s on a RaspberryPI or Ubuntu 22.04 node
+and then follow instructions in CESMIIDev folder for deploying a Kubernetes app that will send three random
+numbers to CESMII SMIP

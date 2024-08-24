@@ -1,0 +1,5 @@
+CesmiiAppContainer describes how to deploy a docker container 
+and
+CesmiiAppKubeDeploy describes how to run it under Kubernetes
+
+SimpleService is just for practive run to deploy a Python flask application

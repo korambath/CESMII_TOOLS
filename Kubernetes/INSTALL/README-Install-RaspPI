@@ -1,0 +1,81 @@
+The Instructions here are for Installing Kubernetes K3s on a Raspberry PI running Ubuntu 22.04
+
+
+1. Install Ubuntu 22.04
+
+1.1 curl -L "https://cdimage.ubuntu.com/ubuntu-server/jammy/daily-preinstalled/current/jammy-preinstalled-server-arm64+raspi.img.xz" -o ~/Downloads/ubuntu-preinstalled-server-arm64+raspi.img.xz
+
+1.2 unxz -T 0 ~/Downloads/ubuntu-preinstalled-server-arm64+raspi.img.xz
+
+
+Step 2:
+2.1 Flash the image on to a SD card
+use raspberry Pi Imager to flash the image (https://www.raspberrypi.com/news/raspberry-pi-imager-imaging-utility/)
+because it will give the option to set up username, password, wireless login, start ssh service etc. which is very convenient
+
+
+Step 3:
+Boot from the SD card
+
+Upon starting RaspberryPI with the new SD card you may want to add folloing packages
+
+
+3.1 sudo apt-get update
+3.2 sudo apt-get upgrade
+3.3 sudo apt-get dist-upgrade
+3.4 reboot
+After reboot instal some packages
+3.5 sudo apt install raspi-config
+3.6 sudo raspi-config
+3.7 sudo apt install lightdm
+3.8 sudo apt install ubuntu-desktop
+3.9 sudo reboot
+
+Next time you reboot if you want to go to a GUI use the command below or use rapi-config to change boot to GUI (option b4)
+3.10 sudo systemctl start lightdm
+3.11 sup apt install net-tools
+
+
+3.12  appended the following to /boot/firmware/cmdline.txt and rebooted the system - 
+
+cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1
+
+k3s requires some extra modules that aren’t installed by default on Ubuntu.
+
+3.13 sudo apt install linux-modules-extra-raspi
+
+Install k3s control plane
+
+Following the instructions at https://rancher.com/docs/k3s/latest/en/quick-start/
+
+On the first node:
+3.14 curl -sfL https://get.k3s.io | sh -
+
+3.15 sudo k3s kubectl get nodes 
+
+Install k3s agents
+
+3.16 sudo cat /var/lib/rancher/k3s/server/node-token
+
+On worker nodes
+
+3.17 curl -sfL https://get.k3s.io | K3S_URL=https://rpi401:6443 K3S_TOKEN=<node-token> sh -
+
+KUBECONFIG
+
+mkdir ~/.k3s
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.k3s/k3s.yaml
+sudo chown $USER.$USER ~/.k3s/k3s.yaml
+export KUBECONFIG=$HOME/.k3s/k3s.yaml   # add this to ~/.bashrc
+
+brew install derailed/k9s/k9s
+
+UnInstall
+
+/usr/local/bin/k3s-uninstall.sh
+
+
+
+
+
+

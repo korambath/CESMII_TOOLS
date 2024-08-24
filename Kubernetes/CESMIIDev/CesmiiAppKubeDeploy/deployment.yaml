@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cesmii-python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cesmii-python-app
+  template:
+    metadata:
+      labels:
+        app: cesmii-python-app
+    spec:
+      containers:
+      - name: cesmii-python-app
+        image: <REPLACE>/cesmii-python-app:latest
+        args:
+        - --authenticator
+        - $(AUTHENTICATOR)
+        - --password
+        - $(PASSWORD)
+        - --name
+        - $(NAME)
+        - --role
+        - $(ROLE)
+        - --url 
+        - $(URL)
+        env:
+        - name: AUTHENTICATOR
+          value: "REPLACE"
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: password
+        - name: NAME
+          value: "REPLACE"
+        - name: ROLE
+          value: "REPLACE"
+        - name: URL
+          value: "REPLACE"
+
+

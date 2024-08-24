@@ -1,0 +1,38 @@
+nginx
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+
+kubectl describe deployment nginx-deployment
+
+kubectl get pods -l app=nginx
+
+kubectl describe pod <pod-name>
+
+curl http://10.42.0.32
+
+kubectl apply -f https://k8s.io/examples/application/deployment-update.yaml
+kubectl get pods -l app=nginx
+
+kubectl apply -f https://k8s.io/examples/application/deployment-scale.yaml
+
+kubectl get pods -l app=nginx
+kubectl delete deployment nginx-deployment
+
+
+kubectl create -f nginx-app.yaml 
+kubectl get deployments 
+kubectl get deployment nginx-app
+kubectl get deployment nginx-app   --output yaml
+kubectl create -f nginx-service.yaml 
+kubectl get services
+curl http://10.43.127.134/
+curl http://10.43.127.134:80
+kubectl get services
+curl http://localhost:30500
+curl http://192.168.1.18:30500
+kubectl get services
+kubectl delete -f nginx-service.yaml 
+kubectl get services
+kubectl delete -f nginx-app.yaml 
+kubectl get deployments 
+
+

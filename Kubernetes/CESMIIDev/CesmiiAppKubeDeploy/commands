@@ -1,0 +1,30 @@
+#
+#
+# kubectl create secret generic my-secret --from-literal=password='REPLACE'
+
+
+# Apply the deployment
+kubectl apply -f deployment.yaml
+
+# Apply the service
+kubectl apply -f service.yaml
+
+
+
+kubectl get pods
+kubectl get pods -l app=cesmii-python-app
+
+kubectl describe pod python-app-5b9dcfc6fc-hwrjp
+curl http://10.42.0.44:5000/
+
+kubectl delete -f service.yaml
+
+kubectl get services
+
+kubectl delete -f deployment.yaml
+
+kubectl get deployments
+
+kubectl get pods
+
+

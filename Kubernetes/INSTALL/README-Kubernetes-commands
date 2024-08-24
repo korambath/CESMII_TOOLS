@@ -1,0 +1,81 @@
+sudo kubectl get nodes
+
+
+sudo systemctl status k3s
+sudo kubectl get nodes -o wide
+
+sudo kubectl describe nodes
+Look for conditions, capacity and allocatable:
+
+
+configure firewall
+
+sudo ufw allow 6443/tcp
+sudo ufw allow 443/tcp
+
+
+journalctl -u kubelet
+
+
+kubectl get pods -n kube-system
+
+kubectl get nodes # Check which node is not in ready state
+
+kubectl describe node nodename #nodename which is not in readystate
+
+systemctl status kubelet # Make sure kubelet is running
+
+systemctl status docker # Make sure docker service is running
+
+journalctl -u kubelet # To Check logs in depth
+
+
+
+systemctl daemon-reload
+systemctl restart kubelet
+
+
+
+kubectl get pods -A
+
+
+More Kubectl commands
+
+kubectl version
+
+kubectl config view
+kubectl config view --flatten
+kubectl cluster-info
+alias k='kubectl'
+k cordon ppk-precision-3541
+k uncordon ppk-precision-3541
+k get namespace
+
+
+k create namespace prod
+k create namespace dev
+k create namespace test
+
+
+k delete namespace test
+
+k create -f namespace/namespace-test.yaml
+
+k describe ns prod
+
+k config set-context --current --namespace=dev
+
+k create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+
+
+kubectl get namespace
+kubectl get deployment
+kubectl get configmap
+kubectl get nodes
+kubectl describe nodes
+kubectl get events
+
+Cluster Management
+
+kubectl cluster-info
+kubectl get nodes

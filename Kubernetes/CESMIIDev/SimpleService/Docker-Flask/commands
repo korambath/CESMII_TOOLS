@@ -1,0 +1,24 @@
+
+cd app
+docker build -f ../docker/Dockerfile -t hello-python:latest .
+
+
+docker run -p 5001:5000 hello-python
+
+
+http://192.168.1.14:5001/
+http://localhost:5001/
+
+
+docker image ls
+docker ps -qa
+docker rm $(docker ps -qa)
+docker ps -qa
+
+
+
+docker login
+docker image ls
+docker tag hello-python:latest ppko/hello-python:latest
+docker push ppko/hello-python:latest
+
