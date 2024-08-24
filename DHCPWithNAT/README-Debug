@@ -1,0 +1,87 @@
+#Extra instruction to debug if something doesn't work
+
+
+echo $(wget -qO - https://api.ipify.org)
+
+echo $(curl -s https://api.ipify.org)
+
+
+ip a
+
+sudo lshw -class network
+
+sudo ethtool enp0s31f6
+
+sudo ip addr add 192.168.1.0/24 dev enp4s0
+
+ip address show dev enp4s0
+
+sudo ip route add default via  128.97.62.1 
+
+
+ip route show
+ 
+route -n
+
+/etc/resolve.conf
+
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+
+
+ip addr flush eth0  # to purge the configuration
+
+sudo sudo ifconfig enp4s0 192.168.1.100 netmask 255.255.255.0
+
+
+cat /var/lib/dhcp/dhcpd.leases
+
+sudo ufw allow 67/udp
+sudo ufw allow 22/tcp
+
+sudo ufw enable
+
+
+
+sudo vi /etc/sysctl.conf
+
+Then add the following line at the bottom of the file:
+/etc/sysctl.conf
+
+net.ipv4.ip_forward = 1
+
+
+sudo sysctl -p
+ip route list default
+
+sudo vi /etc/ufw/before.rules
+
+# nat Table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+
+# Forward traffic from eth1 through eth0.
+-A POSTROUTING -s 192.168.1.0/24 -o enp0s31f6 -j MASQUERADE
+
+# don't delete the 'COMMIT' line or these nat table rules won't be processed
+COMMIT
+
+
+sudo vi /etc/default/ufw
+
+Inside, find the DEFAULT_FORWARD_POLICY directive and change the value from DROP to ACCEPT:
+/etc/default/ufw
+
+DEFAULT_FORWARD_POLICY="ACCEPT"
+
+
+
+
+sudo ufw enable
+sudo ufw allow from 192.168.1.0/24
+sudo ufw allow from 192.168.2.0/24
+
+sudo ufw reload
+
+#sudo ip addr add 192.168.1.0/24 dev enp4s0
+

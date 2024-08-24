@@ -1,0 +1,9 @@
+# Edit the file in following locations with the the contents provided in the Files/netplan folder.
+# Edit the IP Addresses accordingly
+
+sudo vi /etc/netplan/01-network-manager-all.yaml
+sudo vi /etc/netplan/02-network-manager-all.yaml
+sudo vi /etc/netplan/03-network-manager-all.yaml
+
+
+sudo netplan apply

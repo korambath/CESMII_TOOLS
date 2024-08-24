@@ -1,0 +1,17 @@
+# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s31f6:
+      dhcp4: false
+      dhcp6: false
+      addresses:
+        - <Your Public IP>/24
+      routes:
+        - to: default
+          via: <Your Router>
+      nameservers:
+        #search: [your domain]
+        addresses: [8.8.8.8,4.4.4.4]
+

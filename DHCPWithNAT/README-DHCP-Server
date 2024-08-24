@@ -1,0 +1,122 @@
+Instructions for Ubuntu 22.04 Linux Server
+# Instructions are according to the sketch given conceptual_sketch.txt
+
+
+0. suo apt-get update
+1. sudo apt install wget apt-transport-https gnupg2 software-properties-common
+2. sudo apt install isc-dhcp-server
+3. sudo systemctl start isc-dhcp-server
+4. sudo systemctl status isc-dhcp-server
+5. sudo systemctl enable isc-dhcp-server
+
+
+6. Configure isc-dhcp-server
+
+You will probably need to change the default configuration by editing /etc/dhcp/dhcpd.conf to suit your needs and particular configuration.
+
+Most commonly, what you want to do is assign an IP address randomly. This can be done with /etc/dhcp/dhcpd.conf settings as follows:
+
+default-lease-time 600;
+max-lease-time 7200; 
+
+
+authoritative;
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+ range 192.168.1.101 192.168.1.200;
+ option subnet-mask 255.255.255.0;
+ option broadcast-address 192.168.1.255;
+ option routers 192.168.1.1; 
+ option domain-name-servers 8.8.8.8; 
+} 
+
+
+# DHCP for 192.168.2.0/24
+subnet 192.168.2.0 netmask 255.255.255.0 {
+  range 192.168.2.101 192.168.2.200;
+  option subnet-mask 255.255.255.0;
+  option broadcast-address 192.168.2.255; 
+  option routers 192.168.2.1; 
+  option domain-name-servers 8.8.8.8, 8.8.4.4;
+}
+
+
+# optional  replace the MAC ADDRESS with actual value
+
+host ubuntuwork1 {
+        hardware ethernet <MAC ADDRESS>;
+        fixed-address 192.168.1.101;
+} 
+
+host ubuntuwork2 {
+        hardware ethernet <MAC ADDRESS>;
+        fixed-address 192.168.2.102;
+}
+
+7. sudo systemctl start isc-dhcp-server
+8. sudo systemctl status isc-dhcp-server
+
+This will result in the DHCP server giving clients an IP address from the range 192.168.1.101 - 192.168.1.200 and 192.168.2.101 - 192.168.2.200
+It will lease an IP address for 600 seconds if the client doesn’t ask for a specific time frame. 
+Otherwise the maximum (allowed) lease will be 7200 seconds. 
+The server will also “advise” the client to use 192.168.1.1 as the default-gateway and 192.168.1.1 as its DNS servers on the first subnet.
+The server will also “advise” the client to use 192.168.2.1 as the default-gateway and 192.168.2.1 as its DNS servers on the second subnet.
+
+9. You also may need to edit /etc/default/isc-dhcp-server to specify the interfaces dhcpd should listen to.
+
+INTERFACESv4="enp4s0 enp5s0"
+
+After changing the config files you need to restart the dhcpd service:
+
+sudo systemctl restart isc-dhcp-server.service
+
+
+10. sudo systemctl start isc-dhcp-server
+12. sudo systemctl enable isc-dhcp-server
+13. sudo systemctl status isc-dhcp-server
+
+cat /var/lib/dhcp/dhcpd.leases
+
+sudo netstat -ulnp | grep 67
+
+
+14. Set up the Network interface following the README-Networks files and then restart the dhcp server again.
+
+
+Set up UFW
+
+15. sudo ufw allow 67/udp
+16. sudo ufw allow 22/tcp
+
+17. sudo ufw enable
+
+
+Set up port forwarding
+
+
+18. sudo vi /etc/sysctl.conf
+
+Then add the following line at the bottom of the file:
+/etc/sysctl.conf
+
+net.ipv4.ip_forward = 1
+
+
+19. sudo sysctl -p
+
+
+20. You MUST "ACCEPT" as per "set DEFAULT_FORWARD_POLICY="ACCEPT" in order to forward traffic between your 2 network cards. 
+
+Edit /etc/default/ufw and change DEFAULT_FORWARD_POLICY="ACCEPT"
+
+
+21. Edit /etc/ufw/before.rules and copy the contents in the folder Files/before.rules 
+
+
+22. sudo ufw enable
+23. sudo ufw allow from 192.168.1.0/24
+24. sudo ufw allow from 192.168.2.0/24
+
+25. sudo ufw reload
+
+
