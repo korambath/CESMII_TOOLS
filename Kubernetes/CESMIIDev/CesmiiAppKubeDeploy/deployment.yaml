@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cesmii-python-app
-        image: <REPLACE>/cesmii-python-app:latest
+        image: <REPLACE>/cesmii-python-app-id:latest
         args:
         - --authenticator
         - $(AUTHENTICATOR)
@@ -26,6 +26,10 @@ spec:
         - $(ROLE)
         - --url 
         - $(URL)
+        - --ids
+        - "REPLACE"
+        - "REPLACE"
+        - "REPLACE"
         env:
         - name: AUTHENTICATOR
           value: "REPLACE"
@@ -40,5 +44,3 @@ spec:
           value: "REPLACE"
         - name: URL
           value: "REPLACE"
-
-

@@ -1,15 +1,14 @@
 
-docker build -t cesmii-python-app:latest .
-docker run -it --rm cesmii-python-app /bin/sh
+docker build -t cesmii-python-app-id:latest .
+docker run -it --rm cesmii-python-app-id /bin/sh
 docker login
 
 docker login -u REPLACE
-
 docker image ls
-docker tag cesmii-python-app:latest REPLACE/cesmii-python-app:latest
-docker push REPLACE/cesmii-python-app:latest
+docker tag cesmii-python-app-id:latest <REPLACE>/cesmii-python-app-id:latest
+docker push <REPLACE>/cesmii-python-app-id:latest
  
-docker run -it --rm cesmii-python-app  --authenticator  --password 'REPLACE' --name 'REPLACE' --role 'REPLACE' --url 'REPLACE' 
+docker run -it --rm cesmii-python-app-id  --authenticator <REPLACE> --password <REPLACE> --name <REPLACE> --role <REPLACE> --url <REPLACE> --ids <id1> <id2> <id3> 
 
 docker image ls
 docker ps -qa
