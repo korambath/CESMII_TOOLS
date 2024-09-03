@@ -1,7 +1,0 @@
-# You need to replace the attribute IDs in the cesmiiapp.py file with actual id
-# Later on we will have a way of providing that on command line as well.
-write_attribute_id1 = "REPLACE"
-write_attribute_id2 = "REPLACE"
-write_attribute_id3 = "REPLACE"
-
-

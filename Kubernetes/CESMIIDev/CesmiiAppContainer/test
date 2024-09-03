@@ -1,1 +1,1 @@
-python3 cesmiiapp.py --authenticator '<REPLACE>' --password '<REPLACE>' --name <REPLACE> --role '<REPLACE>' --url '<REPLACE>'
+python3 cesmiiappwithid.py --authenticator '<REPLACE>' --password '<REPLACE>' --name <REPLACE> --role '<REPLACE>' --url '<REPLACE>' --ids <id1> <id2> <id3>
