@@ -1,0 +1,17 @@
+docker build -t cesmiiopcuaclient .
+
+docker run --rm -it cesmiiopcuaclient
+
+docker run  -it --rm -p 4840:4840 cesmiiopcuaclient opc.tcp://192.168.1.3:4840/freeopcua/server/ 
+
+docker rm $(docker ps -qa)
+
+
+
+# Tag the image
+docker tag cesmiiopcuaclient ppko/cesmiiopcuaclient:latest
+
+# Push the image to Docker Hub (replace with your registry)
+docker push <REPLACE>/cesmiiopcuaclient:latest
+
+
