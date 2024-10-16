@@ -1,0 +1,20 @@
+# Use the official Python image from the Docker Hub
+FROM python:3.12-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file (if you have one)
+# If you don't have a requirements.txt, you can skip this line
+COPY requirements.txt .
+
+# Install the necessary packages
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the MQTT client script into the container
+COPY cesmiimqttclient.py .
+
+# Command to run the MQTT client
+ENTRYPOINT ["python", "cesmiimqttclient.py"]  # Require broker-address as argument
+#CMD ["python", "cesmiimqttclient.py"]  # Replace with default broker address if needed
+

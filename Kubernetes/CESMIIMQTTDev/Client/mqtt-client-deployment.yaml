@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cesmii-mqtt-client-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cesmii-mqtt-client-app
+  template:
+    metadata:
+      labels:
+        app: cesmii-mqtt-client-app
+    spec:
+      containers:
+      - name: cesmiimqttclient
+        image: <REPLACE>/cesmiimqttclient:latest  # Use your image name
+        env:
+        - name: MQTT_BROKER
+          value: "192.168.1.3"  # Replace with your MQTT broker URL
+        ports:
+        - containerPort: 1883  # If needed, specify the port used by your MQTT broker
+        command: ["python"]
+        args: ["cesmiimqttclient.py", "$(MQTT_BROKER)"]
+
