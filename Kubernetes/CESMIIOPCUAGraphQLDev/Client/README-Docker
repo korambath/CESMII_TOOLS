@@ -1,0 +1,17 @@
+docker build -t cesmiiopcuagraphql .
+
+docker run --rm -it cesmiiopcuagraphql
+
+docker run  -it --rm -p 4840:4840 cesmiiopcuagraphql -a <REPLACE> -p <REPLACE> -n <REPLACE> -r <REPLACE> -u <REPLACE> -i <REPLACE 3 IDS> -o  opc.tcp://192.168.1.3:4840/freeopcua/server/
+
+docker rm $(docker ps -qa)
+
+
+
+# Tag the image
+docker tag cesmiiopcuagraphql <REPLACE>/cesmiiopcuagraphql:latest
+
+# Push the image to Docker Hub (replace with your registry)
+docker push <REPLACE>/cesmiiopcuagraphql:latest
+
+
