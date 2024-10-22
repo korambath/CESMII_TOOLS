@@ -1,0 +1,15 @@
+docker build -t cesmiimqttgraphql .
+
+docker run -it --rm -p 1883:1883 cesmiimqttgraphql -a <REPLACE> -p <REPLACE> -n <REPLACE> -r <REPLACE> --url <REPLACE> -i <REPLACE 3 IDS> -m <REPLACE> -t Envsensor/data
+
+docker rm $(docker ps -qa)
+
+
+
+# Tag the image
+docker tag cesmiimqttgraphql <REPLACE>/cesmiimqttgraphql:latest
+
+# Push the image to Docker Hub (replace with your registry)
+docker push <REPLACE>/cesmiimqttgraphql:latest
+
+

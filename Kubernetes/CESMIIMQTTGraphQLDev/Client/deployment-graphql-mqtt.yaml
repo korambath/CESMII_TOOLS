@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cesmiimqttgraphql-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cesmiimqttgraphql-app
+  template:
+    metadata:
+      labels:
+        app: cesmiimqttgraphql-app
+    spec:
+      containers:
+      - name: cesmiimqttgraphql
+        image: <REPLACE>/cesmiimqttgraphql:latest
+        args:
+        - --authenticator
+        - $(AUTHENTICATOR)
+        - --password
+        - $(PASSWORD)
+        - --name
+        - $(NAME)
+        - --role
+        - $(ROLE)
+        - --url 
+        - $(URL)
+        - --ids
+        - "<REPLACE>"
+        - "<REPLACE>"
+        - "<REPLACE>"
+        - --mqtt_broker
+        - $(MQTT_BROKER) 
+        - --mqtt_topic
+        - $(MQTT_TOPIC)
+        env:
+        - name: AUTHENTICATOR
+          value: "<REPLACE>"
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: password
+        - name: NAME
+          value: "<REPLACE>"
+        - name: ROLE
+          value: "<REPLACE>"
+        - name: URL
+          value: "<REPLACE>"
+        - name: MQTT_BROKER
+          value: "<REPLACE>"  # Replace with your MQTT broker URL
+        - name: MQTT_TOPIC
+          value: "Envsensor/data" # Replace with your MQTT TOPIC
+        ports:
+        - containerPort: 1883  # If needed, specify the port used by your MQTT broker
+

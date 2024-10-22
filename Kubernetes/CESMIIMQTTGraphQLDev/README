@@ -1,0 +1,2 @@
+Server folder contains MQTT Server file
+Client folder contains MQTT client that pass on the data to CESMII GraphQL Client

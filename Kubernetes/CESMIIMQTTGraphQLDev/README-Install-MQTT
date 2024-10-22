@@ -1,0 +1,19 @@
+sudo apt install mosquitto mosquitto-clients 
+sudo systemctl status mosquitto
+sudo systemctl restart mosquitto
+
+
+sudo vi /etc/mosquitto/conf.d/default.conf
+
+listener 1883 <sererIP>
+allow_anonymous true
+
+sudo systemctl restart mosquitto
+sudo systemctl status mosquitto
+
+conda install -c conda-forge paho-mqtt 
+
+
+mosquitto_sub -h <serverIP> -t 'test/topic' -v
+mosquitto_pub -t 'test/topic' -m 'helloWorld'
+
