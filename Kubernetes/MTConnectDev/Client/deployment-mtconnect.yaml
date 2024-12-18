@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cesmiimtconnect-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cesmiimtconnect-app
+  template:
+    metadata:
+      labels:
+        app: cesmiimtconnect-app
+    spec:
+      containers:
+      - name: cesmiimtconnect
+        image: <REPLACE>/cesmiimtconnect:latest
+        args:
+        - --mt_url
+        - $(MT_URL) 
+        - --mt_port
+        - $(MT_PORT)
+        env:
+        - name: MT_URL
+          value: "192.168.1.3"  # Replace with your MT Connect URL
+        - name: MT_PORT
+          value: "5000" # Replace with your MTConnect Port
+        ports:
+        - containerPort: 5000  # If needed, specify the port used by your server
+

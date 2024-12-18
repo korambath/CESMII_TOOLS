@@ -1,0 +1,30 @@
+kubectl apply -f deployment-mtconnect.yaml
+
+
+kubectl get deployments
+kubectl get pods
+
+kubectl get pods -l app=cesmiimqttgraphql-app
+kubectl describe pod python-app-5b9dcfc6fc-hwrjp
+
+kubectl logs cesmii-python-app-989c7d8b5-7sdsf
+
+
+kubectl delete -f deployment-mtconnect.yaml
+
+
+
+kubectl describe pods $(kubectl get pods --namespace=default --no-headers | awk '{print $1}' | head -n 1)
+
+kubectl logs $(kubectl get pods --namespace=default --no-headers | awk '{print $1}' | head -n 1)
+
+
+
+
+Optional
+
+kubectl logs <pod-name>
+
+kubectl get pods
+
+
