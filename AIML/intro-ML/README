@@ -1,0 +1,18 @@
+Setting up a python Anaconda environment
+
+1. First install Anaconda
+
+2. Create a virtual environment using the command 
+   conda create -n "PIPEnv" python=3.11
+
+Alter the envirnment and python version accordingly
+
+3. conda activate PIPEnv
+
+
+4. Then run your python code and jupyter notebooks. You will have to install the python modules using conda install <modulename> or pip install <modulename> when it complains
+module not found.
+
+5. You can exit the virtual environment using the command
+
+  conda deactivate
