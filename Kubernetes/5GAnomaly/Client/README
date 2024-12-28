@@ -1,0 +1,16 @@
+
+1. First make sure http server is running  
+
+Then wait for the data receiving code which will be run on MITH cluster later on via a Docker container 
+
+
+2.python ./get_data_general_arg.py 192.168.1.14 8000
+
+
+Next step is to send the data that will be received by the code .  Keep repeating the step 3.  You should see an output in Step 2. corresponding
+to the action on Step 3.
+
+3. python ./send_event_arg.py 192.168.1.14 8000
+
+
+
