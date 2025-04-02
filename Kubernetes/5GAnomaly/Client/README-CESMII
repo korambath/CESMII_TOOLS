@@ -1,0 +1,18 @@
+1. First make sure http server is running Executed on the Server directory 
+
+cd ../Server
+python ./http_server.py -u 192.168.1.16 -p 8000  (Example)
+
+
+Step 2 and 3 are executed on the client directory
+
+Step 2. Open another terminal in the Client directory 
+
+python ./cesmiihttpgraphanom.py -a <authenticationName> -p <authenticationPassword> -n <user_name> -r <user_role> --url <GraphQLEndPt> -s <httpserveradressfromstep1> -t 8000  -i <attid1> <attid2> <attid3> <attid4>
+
+Step3. 
+
+python ./send_event_fetch_while.py <httpserveraddressfromstep1> 8000 https://<eventhostname>
+
+
+
