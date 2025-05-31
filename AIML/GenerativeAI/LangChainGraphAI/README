@@ -1,0 +1,25 @@
+
+uv init basicLangChGrAgent
+
+uv venv
+
+Using CPython 3.13.3
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+
+uv add "langchain[google-genai]"
+uv add "langchain[openai]"
+uv add "langchain-nvidia-ai-endpoints"
+uv add langchain-community langgraph  tavily-python langgraph-checkpoint-sqlite
+uv run --with jupyter jupyter lab
+
+
+VS Code
+
+Command Shift P
+
+Select
+basicLangChGrAgent/.venv
+
+
+

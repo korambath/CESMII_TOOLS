@@ -1,0 +1,16 @@
+[project]
+name = "basiclangchgragent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain-community>=0.3.24",
+    "langchain-neo4j>=0.4.0",
+    "langchain-nvidia-ai-endpoints>=0.3.10",
+    "langchain[google-genai,openai]>=0.3.25",
+    "langgraph>=0.4.7",
+    "langgraph-checkpoint-sqlite>=2.0.10",
+    "pypdf>=5.5.0",
+    "tavily-python>=0.7.3",
+]
