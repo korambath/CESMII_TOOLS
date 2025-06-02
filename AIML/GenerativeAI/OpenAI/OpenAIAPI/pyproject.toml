@@ -1,0 +1,23 @@
+[project]
+name = "basicgenai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "huggingface-hub>=0.31.2",
+    "ipython>=9.3.0",
+    "matplotlib>=3.10.3",
+    "openai>=1.78.1",
+    "openai-agents>=0.0.15",
+    "pandas>=2.2.3",
+    "python-dotenv>=1.1.0",
+    "requests>=2.32.3",
+    "rich>=14.0.0",
+    "rouge>=1.0.1",
+    "sentence-transformers>=4.1.0",
+    "tiktoken>=0.9.0",
+]
+
+[dependency-groups]
+dev = []
