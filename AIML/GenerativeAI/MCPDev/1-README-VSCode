@@ -17,7 +17,7 @@ This is in the settings.json file
 
    Then click "Add Server" (selecting mcp.json package)
    select NPM package
-   type *playwright/mcp Enter and Allow
+   type @playwright/mcp Enter and Allow
 
 
 3. After that add the Claude example as well.
