@@ -32,10 +32,10 @@ This is in the settings.json file
       ]
     },
     "weather": {
-      "command": "/Users/ppk/.local/bin/uv",
+      "command": "/Users/<change>/.local/bin/uv",
       "args": [
         "--directory",
-        "/Users/ppk/DevOps/GenerativeAIDev/MCPDev/mcpsrvclt/src/Ex0",
+        "/Users/<change>/MCPDev/mcpsrvclt/src/Ex0",
         "run",
         "weather.py"
       ]
