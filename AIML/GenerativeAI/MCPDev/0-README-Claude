@@ -32,7 +32,7 @@ Updated `.python-version` from `3.11` -> `3.13`
 16. uv add openai-agents
 17. uv add google-genai 
 18. uv add geopy
-19. mkdir src; cd src
+19. mkdir src; cd src; mkdir Ex0; cd src
 20. wget https://raw.githubusercontent.com/modelcontextprotocol/quickstart-resources/refs/heads/main/weather-server-python/weather.py
 
 [Ref: https://github.com/modelcontextprotocol/quickstart-resources/tree/main]
