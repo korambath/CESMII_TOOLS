@@ -1,0 +1,45 @@
+Ref: https://code.visualstudio.com/docs/copilot/chat/mcp-servers
+
+
+1. To enable MCP support in VS Code, enable the chat.mcp.enabled setting.
+
+This is in the settings.json file
+~/Library/Application\ Support/Code/User/settings.json
+
+{
+    "chat.mcp.discovery.enabled": true
+}
+
+
+2. To add an MCP server to your workspace:
+
+   Create a .vscode/mcp.json file in your workspace.
+
+   Then click "Add Server" (selecting mcp.json package)
+   select NPM package
+   type *playwright/mcp Enter and Allow
+
+
+3. After that add the Claude example as well.
+
+
+{
+  "servers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
+    "weather": {
+      "command": "/Users/ppk/.local/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/ppk/DevOps/GenerativeAIDev/MCPDev/mcpsrvclt/src/Ex0",
+        "run",
+        "weather.py"
+      ]
+    }
+  }
+   
+}
