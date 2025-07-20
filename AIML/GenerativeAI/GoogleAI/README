@@ -1,4 +1,4 @@
-uv init PythonGeminiAPI
+uv init basicGeminiAi
 uv venv
 source .venv/bin/activate
 
