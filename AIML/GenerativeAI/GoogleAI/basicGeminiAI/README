@@ -1,0 +1,4 @@
+uv init PythonGeminiAPI
+uv venv
+source .venv/bin/activate
+
