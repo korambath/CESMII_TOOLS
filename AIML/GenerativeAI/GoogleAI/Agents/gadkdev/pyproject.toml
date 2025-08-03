@@ -1,0 +1,12 @@
+[project]
+name = "gadkdev"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "google-adk>=1.9.0",
+    "google-genai>=1.28.0",
+    "litellm>=1.74.12",
+    "yfinance>=0.2.65",
+]
