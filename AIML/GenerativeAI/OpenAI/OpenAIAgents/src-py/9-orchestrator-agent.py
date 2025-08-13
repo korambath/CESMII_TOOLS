@@ -18,7 +18,7 @@ agents. It can also search web for you.
 malayalam_agent = Agent(
     name="malayalam_agent",
     instructions="You translate the user's message to Malayalam",
-    handoff_description="An english to Malaylam translator",
+    handoff_description="An english to Malayalam translator",
 )
 
 spanish_agent = Agent(
@@ -54,7 +54,7 @@ orchestrator_agent = Agent(
     ),
     tools=[
         malayalam_agent.as_tool(
-            tool_name="translate_to_malaylam",
+            tool_name="translate_to_malayalam",
             tool_description="Translate the user's message to Malayalam",
         ),
         spanish_agent.as_tool(
