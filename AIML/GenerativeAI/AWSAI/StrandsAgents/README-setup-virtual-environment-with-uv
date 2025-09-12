@@ -1,0 +1,11 @@
+uv init <directory name>
+uv venv
+source .venv/bin/activate
+
+uv add python-dotenv
+uv add strands-agents strands-agents-tools
+uv add 'strands-agents[litellm]'
+uv add strands-agents-builder
+uv add 'strands-agents[openai]' strands-agents-tools
+uv add 'strands-agents[ollama]' strands-agents-tools
+ 
