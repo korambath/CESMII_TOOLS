@@ -1,0 +1,6 @@
+Running 2-sending-email-stock-price.py requires starting the localhost mail server in advance 
+
+1. python localhost-aiosmtpd-server.py
+
+2. python 2-sending-email-stock-price.py
+
