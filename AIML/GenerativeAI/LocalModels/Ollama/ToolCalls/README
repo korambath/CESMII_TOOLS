@@ -1,0 +1,22 @@
+uv add UVollama
+cd UVollama
+uv venv
+source .venv/bin/activate
+
+uv add ollama httpx python-dotenv rich timezonefinder geopy
+
+
+[project]
+name = "uvollama"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "geopy>=2.4.1",
+    "httpx>=0.28.1",
+    "ollama>=0.6.0",
+    "python-dotenv>=1.1.1",
+    "rich>=14.1.0",
+    "timezonefinder>=8.1.0",
+]
