@@ -1,13 +1,11 @@
-Document assumes Docker is installed on the Desktop and user is familiar with Docker commands
-This document explains minimal effort to test neo4j without actually installing anything on your laptop
-through Docker container approach. Don't use the command literally.  Some place you have to substitute
-your own strings like NEO4J_HOME or password etc.
+#### Document assumes Docker is installed on the Desktop and user is familiar with Docker commands
+#### This document explains minimal effort to test neo4j without actually installing anything on your laptop through Docker container approach. Don't use the command literally.  Some place you have to substitute your own strings like NEO4J_HOME or password etc.
 
-Documentation through Docker Approach
+#### Documentation through Docker Approach
 
-Reference: https://neo4j.com/docs/operations-manual/current/docker/
+#### Reference: https://neo4j.com/docs/operations-manual/current/docker/
 
-export NEO4J_HOME=/Users/<username>/DevOps/Neo4JDev/Virtual/
+#### export NEO4J_HOME=/Users/<username>/DevOps/Neo4JDev/Virtual/
 
 For persistant data use Docker Volumes
 
@@ -17,6 +15,7 @@ For persistant data use Docker Volumes
 4. mkdir $NEO4J_HOME/plugins  #Allows you to install plugins in containerized Neo4j.
 5. mkdir $NEO4J_HOME/conf     #Pass configuration files to Neo4j on startup.
 
+```
 docker run --name neo4j-docker \
            --publish=7474:7474 --publish=7473:7473 --publish=7687:7687 \
            --env NEO4J_AUTH=neo4j/<useapa44word-changem> \
@@ -26,14 +25,14 @@ docker run --name neo4j-docker \
            --volume=$NEO4J_HOME/logs:/logs \
            --volume=$NEO4J_HOME/import:/import \
            neo4j:2025.10.1
-
+```
 
 Variation of docker run (Use docker run -it --rm for interactive sessions or docker run --detatch )
 
 
 Using docker-compose.yml file
 
-
+```
 services:
   neo4j:
     image: neo4j:2025.10.1
@@ -50,7 +49,7 @@ services:
       - "7473:7473"
       - "7687:7687"
 
-
+```
 
 docker-compose up -d # to start the container
 docker-compose down  # to stop the container
