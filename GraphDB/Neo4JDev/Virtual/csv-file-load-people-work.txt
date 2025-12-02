@@ -1,0 +1,74 @@
+#All CSV file go to the "import" directory as per the docker command
+
+1. people.csv
+id,name,age
+1,Alice,30
+2,Bob,25
+3,Charlie,35
+
+2. works_for.csv
+person_id,company_name,role
+1,Acme Corp,Engineer
+2,Globex Inc,Analyst
+3,Acme Corp,Manager
+
+
+II. Import People Nodes:
+
+LOAD CSV WITH HEADERS FROM 'file:///people.csv' AS row
+MERGE (p:Person {id: toInteger(row.id)})
+ON CREATE SET p.name = row.name, p.age = toInteger(row.age)
+RETURN count(p);
+
+This query reads people.csv, creates Person nodes with a unique id, and sets name and age properties.
+MERGE: Ensures a pattern exists in the graph. It behaves like MATCH if the pattern exists, or CREATE if it doesn't. Great for ensuring uniqueness.
+SET: Updates properties on nodes or relationships, or adds new labels to nodes.
+
+III. Import Company Nodes 
+
+LOAD CSV WITH HEADERS FROM 'file:///works_for.csv' AS row
+MERGE (c:Company {name: row.company_name})
+RETURN count(c);
+
+This query reads works_for.csv, extracts company names, and creates Company nodes with a unique name.
+
+
+
+IV. Create WORKS_FOR Relationships:
+LOAD CSV WITH HEADERS FROM 'file:///works_for.csv' AS row
+MATCH (p:Person {id: toInteger(row.person_id)})
+MATCH (c:Company {name: row.company_name})
+MERGE (p)-[r:WORKS_FOR {role: row.role}]->(c)
+RETURN count(r), p, c;
+
+
+
+Practice commands:
+
+LOAD CSV WITH HEADERS FROM 'file:///people.csv' AS row
+RETURN row
+
+
+LOAD CSV WITH HEADERS FROM 'file:///people.csv' AS row
+WITH row WHERE row.age = '30'
+RETURN row
+
+LOAD CSV WITH HEADERS FROM 'file:///people.csv' AS row
+WITH toInteger(row.id) AS employeeId, toInteger(row.age) AS employeeAge
+RETURN employeeId, employeeAge
+
+
+LOAD CSV WITH HEADERS FROM 'file:///people.csv' AS row
+RETURN count(row)
+
+
+# This time use person.csv file.
+
+LOAD CSV WITH HEADERS FROM 'file:///person.csv' AS row
+WITH toInteger(row.personId) AS personId, date(row.birthYear) AS birthYear
+RETURN personId, birthYear
+
+LOAD CSV WITH HEADERS FROM 'file:///works_for.csv' AS row
+WITH row WHERE row.person_id IS NOT NULL
+MERGE (c:Company {companyId: row.person_id})
+RETURN c.companyId

@@ -1,0 +1,60 @@
+// Clear data
+MATCH (n) DETACH DELETE n;
+
+// Create constraints
+CREATE CONSTRAINT Person_tmdbId IF NOT EXISTS
+FOR (p:Person) REQUIRE p.tmdbId IS UNIQUE;
+
+CREATE CONSTRAINT Movie_movieId IF NOT EXISTS
+FOR (m:Movie) REQUIRE m.movieId IS UNIQUE;
+
+// Create person nodes
+LOAD CSV WITH HEADERS FROM 'https://data.neo4j.com/importing-cypher/persons.csv' AS row
+MERGE (p:Person {tmdbId: toInteger(row.person_tmdbId)})
+SET p.name = row.name, p.born = date(row.born);
+
+// Create movie nodes
+LOAD CSV WITH HEADERS FROM 'https://data.neo4j.com/importing-cypher/movies.csv' AS row
+MERGE (m:Movie {id: toInteger(row.movieId)})
+SET
+    m.title = row.title,
+    m.imdbId = toInteger(row.movie_imdbId),
+    m.languages = split(row.languages, '|'),
+    m.genres = split(row.genres, '|');
+
+// Create relationships
+LOAD CSV WITH HEADERS FROM 'https://data.neo4j.com/importing-cypher/acted_in.csv' AS row
+MATCH (p:Person {tmdbId: toInteger(row.person_tmdbId)})
+MATCH (m:Movie {id: toInteger(row.movieId)})
+MERGE (p)-[r:ACTED_IN]->(m)
+SET r.role = row.role;
+
+// Set additional node label
+MATCH (p:Person)-[:ACTED_IN]->()
+WITH DISTINCT p
+SET p:Actor;
+
+// --- DISPLAY/VERIFICATION COMMANDS START HERE ---
+
+// 1. Count All Nodes and Relationships
+MATCH (n) RETURN count(n) AS total_nodes;
+MATCH ()-[r]->() RETURN count(r) AS total_relationships;
+
+// 2. Display a Sample of Actor Nodes
+MATCH (p:Actor)
+RETURN p.name, p.born, p.tmdbId
+LIMIT 5;
+
+// 3. Display a Sample of Movie Nodes
+MATCH (m:Movie)
+RETURN m.title, m.genres, m.languages
+LIMIT 3;
+
+// 4. Display a Sample of ACTED_IN Relationships
+MATCH (p:Actor)-[r:ACTED_IN]->(m:Movie)
+RETURN p.name, r.role, m.title
+LIMIT 5;
+
+MATCH (m:Movie {title: 'Toy Story'})<-[r:ACTED_IN]-(p:Actor)
+RETURN p, r, m
+LIMIT 5

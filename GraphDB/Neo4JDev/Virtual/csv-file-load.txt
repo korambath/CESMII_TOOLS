@@ -1,0 +1,52 @@
+movies.csv (Node)
+
+title,release,name,born,type
+Forrest Gump,1994,Tom Hanks,1956,Actor
+Apollo 13,1995,Tom Hanks,1956,Actor
+Apollo 13,1995,Ron Howard,1954,Director
+The Matrix,1999,Keanu Reeves,1964,Actor
+
+roles.csv(relationship)
+
+actor_name,movie_title,role
+Tom Hanks,Forrest Gump,Forrest
+Tom Hanks,Apollo 13,Jim Lovell
+Keanu Reeves,The Matrix,Neo
+
+
+
+
+// Load the Movie/Person data
+LOAD CSV WITH HEADERS FROM 'file:///movies.csv' AS row
+WITH row WHERE row.type = 'Actor' OR row.type = 'Director'
+
+// Create the Movie Node
+MERGE (m:Movie {title: row.title})
+  ON CREATE SET m.released = toInteger(row.release)
+
+// Create the Person Node (using row.type as the label)
+MERGE (p:Person {name: row.name})
+  ON CREATE SET p.born = toInteger(row.born)
+
+// Create the Director Relationship (if applicable)
+FOREACH (ignoreMe IN CASE WHEN row.type = 'Director' THEN [1] ELSE [] END |
+    MERGE (p)-[:DIRECTED]->(m)
+)
+;
+
+
+// Load the Roles data
+LOAD CSV WITH HEADERS FROM 'file:///roles.csv' AS row
+
+// Match the existing Person and Movie nodes
+MATCH (p:Person {name: row.actor_name})
+MATCH (m:Movie {title: row.movie_title})
+
+// Create the ACTED_IN relationship with the role property
+CREATE (p)-[:ACTED_IN {roles: [row.role]}]->(m)
+;
+
+
+MATCH (p:Person)-[r]-(m:Movie)
+RETURN p, r, m
+LIMIT 100
