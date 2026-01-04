@@ -37,7 +37,10 @@ sudo apt-get update
 sudo apt-get install -y portaudio19-dev python3-pyaudio
 
 # Python environment (using uv)
-cd ~/DevOps/CameraDev/pi_stream
+cd ~/DevOps/CameraDev/
+uv init pi_stream
+cd pi_stream
+uv venv
 source .venv/bin/activate
 uv add openai python-dotenv flask pillow pyaudio
 ```
