@@ -182,7 +182,7 @@ opcua-client
 
 ## Alternative: Python live-plot client with `matplotlib`
 
-[`opcua_live_plot.py`](opcua_live_plot.py) is a scriptable alternative that subscribes to the four main process sensors and displays a 2×2 grid of auto-scaling live charts, updating every 500 ms.
+opcua_live_plot.py is a scriptable alternative that subscribes to the four main process sensors and displays a 2×2 grid of auto-scaling live charts, updating every 500 ms.
 
 ### Install
 
