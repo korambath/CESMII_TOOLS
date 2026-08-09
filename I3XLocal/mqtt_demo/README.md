@@ -181,7 +181,7 @@ The Python publisher expects the Arduino to appear on a serial device such as:
 SERIAL_PORT = "/dev/cu.usbmodem2101"
 ```
 
-If your port is different, update it in [publisher_arduino.py](publisher_arduino.py).
+If your port is different, update it in publisher_arduino.py file.
 
 #### Run the Arduino-based publisher
 
@@ -271,7 +271,7 @@ For a complete demo, use this order:
    - `python3 publisher.py`, or
    - `python3 publisher_arduino.py`
 5. Run `python3 subscriber.py` to see the MQTT stream locally.
-6. Create and stream the i3X subscription using the commands in [commands.txt](commands.txt) or [i3x-mqtt-runtime/subscribe_bme280.sh](i3x-mqtt-runtime/subscribe_bme280.sh).
+6. Create and stream the i3X subscription using the commands in subscribe_bme280.sh file
 
 ---
 
