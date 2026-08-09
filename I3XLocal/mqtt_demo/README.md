@@ -163,8 +163,7 @@ This script publishes random values for:
 
 ### Option B: Publish real data from an Arduino BME280 sensor
 
-The Arduino sketch is located at:
-- [Arduino/bme280i2c.ino](Arduino/bme280i2c.ino)
+The Arduino sketch is located at Arudino folder inside publish folder:
 
 #### Upload the Arduino sketch
 
@@ -210,9 +209,6 @@ This subscribes to the same topic and prints the incoming payloads as JSON.
 
 Once the i3X server is running, you can create and manage subscriptions using the provided curl examples.
 
-The command examples are stored in:
-- [commands.txt](commands.txt)
-- [i3x-mqtt-runtime/subscribe_bme280.sh](i3x-mqtt-runtime/subscribe_bme280.sh)
 
 ### Example flow
 
@@ -283,5 +279,5 @@ For a complete demo, use this order:
 
 - The MQTT topic used by the demo is `cesmii/labLA/bme280sensor`.
 - The object element ID used by the server-side examples is `cesmii_labLA_bme280sensor`.
-- If your Arduino board uses a different serial port, update [publisher_arduino.py](publisher_arduino.py) before running it.
+- If your Arduino board uses a different serial port, update publisher_arduino.py before running it.
 - If the i3X server is not listening on `localhost:8080`, adjust the curl commands and the local endpoint in Explorer accordingly.
