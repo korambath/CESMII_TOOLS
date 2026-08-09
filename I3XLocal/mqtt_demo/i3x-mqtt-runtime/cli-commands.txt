@@ -1,0 +1,462 @@
+
+
+curl -s http://localhost:8080/info | jq      
+{
+  "success": true,
+  "result": {
+    "specVersion": "1.0",
+    "serverVersion": "0.0.1",
+    "serverName": "I3X API - MQTT",
+    "capabilities": {
+      "query": {
+        "history": true
+      },
+      "update": {
+        "current": true,
+        "history": false
+      },
+      "subscribe": {
+        "stream": true
+      }
+    }
+  }
+}
+
+
+
+curl -s http://localhost:8080/namespaces | jq
+{
+  "success": true,
+  "result": [
+    {
+      "uri": "http://i3x.org/mfg/mqtt",
+      "displayName": "MQTT"
+    }
+  ]
+}
+
+
+curl -s http://localhost:8080/objecttypes | jq                
+{
+  "success": true,
+  "result": [
+    {
+      "elementId": "bme280sensorType",
+      "displayName": "bme280sensorType",
+      "namespaceUri": "http://i3x.org/mfg/mqtt",
+      "sourceTypeId": "bme280sensorType",
+      "version": null,
+      "schema": {
+        "$schema": "http://json-schema.org/schema#",
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "humidity": {
+            "type": "number"
+          },
+          "pressure": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "humidity",
+          "pressure",
+          "temperature",
+          "timestamp"
+        ]
+      },
+      "related": null
+    }
+  ]
+}
+
+
+
+curl -s http://localhost:8080/objects | jq   
+{
+  "success": true,
+  "result": [
+    {
+      "elementId": "/",
+      "displayName": "",
+      "typeElementId": "Type",
+      "parentId": null,
+      "isComposition": false,
+      "isExtended": false
+    },
+    {
+      "elementId": "cesmii",
+      "displayName": "cesmii",
+      "typeElementId": "cesmiiType",
+      "parentId": "/",
+      "isComposition": false,
+      "isExtended": false
+    },
+    {
+      "elementId": "cesmii_labLA",
+      "displayName": "labLA",
+      "typeElementId": "labLAType",
+      "parentId": "cesmii",
+      "isComposition": false,
+      "isExtended": false
+    },
+    {
+      "elementId": "cesmii_labLA_bme280sensor",
+      "displayName": "bme280sensor",
+      "typeElementId": "bme280sensorType",
+      "parentId": "cesmii_labLA",
+      "isComposition": false,
+      "isExtended": false
+    }
+  ]
+}
+
+
+curl -s http://localhost:8080/objects | jq '.result[].elementId'
+curl -s http://localhost:8080/objects | jq '.result[].elementId'
+"/"
+"cesmii"
+"cesmii_labLA"
+"cesmii_labLA_bme280sensor"
+
+curl -s http://localhost:8080/objects \
+| jq -r '.result[] | [.elementId, .displayName, .typeElementId] | @tsv'
+/		Type
+cesmii	cesmii	cesmiiType
+cesmii_labLA	labLA	labLAType
+cesmii_labLA_bme280sensor	bme280sensor	bme280sensorType
+
+
+curl -s -X POST http://localhost:8080/objecttypes/query \
+  -H "Content-Type: application/json" \             
+  -d '{
+    "elementIds": [
+      "bme280sensorType"
+    ]
+  }' | jq
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": "bme280sensorType",
+      "subscriptionId": null,
+      "result": {
+        "elementId": "bme280sensorType",
+        "displayName": "bme280sensorType",
+        "namespaceUri": "http://i3x.org/mfg/mqtt",
+        "sourceTypeId": "bme280sensorType",
+        "version": null,
+        "schema": {
+          "$schema": "http://json-schema.org/schema#",
+          "type": "object",
+          "properties": {
+            "timestamp": {
+              "type": "string"
+            },
+            "temperature": {
+              "type": "number"
+            },
+            "humidity": {
+              "type": "number"
+            },
+            "pressure": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "humidity",
+            "pressure",
+            "temperature",
+            "timestamp"
+          ]
+        },
+        "related": null
+      },
+      "responseDetail": null
+    }
+  ]
+}
+
+
+curl -s -X POST http://localhost:8080/objects/list \     
+  -H "Content-Type: application/json" \
+  -d '{
+    "elementIds": [
+      "cesmii_labLA_bme280sensor"
+    ]
+  }' | jq
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": "cesmii_labLA_bme280sensor",
+      "result": {
+        "elementId": "cesmii_labLA_bme280sensor",
+        "displayName": "bme280sensor",
+        "typeElementId": "bme280sensorType",
+        "parentId": "cesmii_labLA",
+        "isComposition": false,
+        "isExtended": false
+      }
+    }
+  ]
+}
+
+
+curl -s -X POST http://localhost:8080/objects/related \ 
+  -H "Content-Type: application/json" \
+  -d '{
+    "elementIds": [
+      "cesmii_labLA_bme280sensor"
+    ]
+  }' | jq
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": "cesmii_labLA_bme280sensor",
+      "result": [
+        {
+          "sourceRelationship": "",
+          "object": {
+            "elementId": "cesmii_labLA",
+            "displayName": "labLA",
+            "typeElementId": "labLAType",
+            "parentId": "cesmii",
+            "isComposition": false,
+            "isExtended": false
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
+curl -s -X POST http://localhost:8080/objects/value \  
+  -H "Content-Type: application/json" \
+  -d '{
+    "elementIds": [
+      "cesmii_labLA_bme280sensor"
+    ]
+  }' | jq
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": "cesmii_labLA_bme280sensor",
+      "result": {
+        "isComposition": false,
+        "value": {
+          "timestamp": "2026-08-01T21:26:09",
+          "temperature": 22.46,
+          "humidity": 39.38,
+          "pressure": 1020.9
+        },
+        "quality": "GOOD",
+        "timestamp": "2026-08-02T04:26:09.384609Z"
+      }
+    }
+  ]
+}
+
+
+curl -s -X PUT http://localhost:8080/objects/value \
+  -H "Content-Type: application/json" \
+  -d '{
+    "updates": [
+      {
+        "elementId": "cesmii_labLA_bme280sensor",
+        "value": {
+          "value": "{\"temperature\":25.5,\"humidity\":50.2,\"pressure\":1013.25,\"timestamp\":\"2026-08-01T21:00:00Z\"}",
+          "quality": "Good",
+          "timestamp": "2026-08-01T21:00:00Z"
+        }
+      }
+    ]
+  }' | jq
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": "cesmii_labLA_bme280sensor",
+      "subscriptionId": null,
+      "result": null,
+      "responseDetail": null
+    }
+  ]
+}
+
+
+
+Step 1. Create a subscription with body
+
+{
+  "clientId": "mqtt_test_client",
+  "displayName": "BME280 MQTT Subscription"
+}
+
+
+curl -s -X POST http://localhost:8080/subscriptions \
+-H "Content-Type: application/json" \
+-d '
+{
+  "clientId": "mqtt_test_client",
+  "displayName": "BME280 MQTT Subscription"
+}' | jq
+
+Response
+
+
+{
+  "success": true,
+  "result": {
+    "clientId": "mqtt_test_client",
+    "subscriptionId": "ac9c3b08-9887-4bb0-9871-5e017a9e521c",
+    "displayName": "BME280 MQTT Subscription"
+  }
+}
+
+What this does
+
+This creates a new subscription object on the server.
+
+Think of it as opening an empty mailbox.
+
+At this point the subscription contains no sensors.
+
+Subscription
+├── ID: ac9c3b08-9887...
+├── Client: mqtt_test_client
+└── Watching: nothing
+
+subscriptionId =
+ac9c3b08-9887-4bb0-9871-5e017a9e521c
+
+Step 2. Register an object with the subscription
+POST /subscriptions/register
+
+curl -s -X POST http://localhost:8080/subscriptions/register \
+-H "Content-Type: application/json" \
+-d '
+{
+  "clientId": "mqtt_test_client",
+  "subscriptionId": "ac9c3b08-9887-4bb0-9871-5e017a9e521c",
+  "elementIds": [
+    "cesmii_labLA_bme280sensor"
+  ]
+}' | jq
+
+Response
+
+
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": "cesmii_labLA_bme280sensor",
+      "subscriptionId": null,
+      "result": null,
+      "responseDetail": null
+    }
+  ]
+}
+
+What this does
+
+Now you're saying
+
+"Please associate this sensor with my subscription."
+
+The subscription changes from
+
+
+Subscription
+└── nothing
+
+to
+
+Subscription
+└── cesmii_labLA_bme280sensor
+
+Now the server knows
+
+Whenever this sensor changes,
+send it to this subscription.
+
+
+Step 3. Start streaming
+
+
+POST /subscriptions/stream
+
+
+{
+  "clientId": "mqtt_test_client",
+  "subscriptionId": "ac9c3b08-9887-4bb0-9871-5e017a9e521c"
+}
+
+This is the step that says
+
+"Open the mailbox and keep it open."
+
+The server keeps the HTTP connection alive.
+
+Instead of replying once and closing the connection, it continuously sends events.
+
+
+
+curl -N -X POST http://localhost:8080/subscriptions/stream \
+-H "Content-Type: application/json" \
+-d '
+{
+  "clientId": "mqtt_test_client",
+  "subscriptionId": "ac9c3b08-9887-4bb0-9871-5e017a9e521c"
+}'
+data: [{"elementId": "cesmii_labLA_bme280sensor", "value": {"timestamp": "2026-08-01T20:20:59", "temperature": 33.3, "humidity": 45.18, "pressure": 1025.97}, "quality": "Good", "timestamp": "2026-08-02T03:20:59.135745Z"}]
+
+data: [{"elementId": "cesmii_labLA_bme280sensor", "value": {"timestamp": "2026-08-01T20:21:01", "temperature": 31.07, "humidity": 48.57, "pressure": 1028.85}, "quality": "Good", "timestamp": "2026-08-02T03:21:01.140275Z"}]
+
+
+
+curl -s -X POST http://localhost:8080/subscriptions/list \
+  -H "Content-Type: application/json" \
+  -d '{
+    "clientId": "mqtt_test_client",
+    "subscriptionIds": [
+      "0712f8cc-e02d-4a80-91a6-a5d74d26d08b"
+    ]
+  }' | jq
+{
+  "success": true,
+  "results": [
+    {
+      "success": true,
+      "elementId": null,
+      "subscriptionId": "0712f8cc-e02d-4a80-91a6-a5d74d26d08b",
+      "result": {
+        "subscriptionId": "0712f8cc-e02d-4a80-91a6-a5d74d26d08b",
+        "displayName": "BME280 MQTT Subscription",
+        "monitoredObjects": [
+          {
+            "elementId": "cesmii_labLA_bme280sensor",
+            "maxDepth": 1
+          }
+        ]
+      },
+      "responseDetail": null
+    }
+  ]
+}
+
