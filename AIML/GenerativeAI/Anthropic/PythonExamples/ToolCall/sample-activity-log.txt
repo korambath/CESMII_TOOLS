@@ -1,0 +1,11 @@
+Team: Mobile Checkout, week of Oct 26, 2026
+
+- [DONE] Merged PR #412: Apple Pay button on cart page (Priya)
+- [DONE] Fixed crash when promo code field is empty (Marco)
+- [DONE] Shipped v3.8.1 to the App Store on Oct 29
+- [WIP] Saved cards screen redesign, in review, expected Nov 4 (Lena)
+- [WIP] Working on address autocomplete, about half done (Marco)
+- [BLOCKED] Google Pay integration waiting on merchant ID from Finance since Oct 20 (owner: Priya)
+- [BLOCKED] Load test environment down, no owner yet
+- Standup notes: agreed to freeze new features Nov 10 for the holiday release
+- Chat: design asked for one more round on the order summary layout
